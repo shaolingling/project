@@ -1,7 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
-import reqData from "../assets/data/data.js";
 import { operEles } from "../assets/data/data.js";
+import reqData from "../reqData.js";
 const UPDATE_COMPANY = "UPDATE_COMPANY";
 const UPDATE_MAROPERELE = "UPDATE_MAROPERELE";
 const UPDATE_RESULT = "UPDATE_RESULT";
@@ -13,49 +13,37 @@ const state = {
   operEles: ""
 };
 const actions = {
-  // refresh({ commit, state }, p) {
-  //   let hashArr = window.location.hash.split("/");
-  //   if (hashArr[1]) {
-  //     let companyName = reqData.companyList.filter(function(ele) {
-  //       return hashArr[2] == ele.id;
-  //     })[0]["name"];
-  //     commit(UPDATE_COMPANY, companyName);
-  //   }
-  //   if (hashArr[4]) {
-  //     let marOperEle = reqData.operEles.filter(function(ele) {
-  //       return hashArr[5] == ele.ename;
-  //     })[0]["cname"];
-  //     commit(UPDATE_MAROPERELE, marOperEle);
-  //   }
-  //   if (hashArr[6]) {
-  //     let result = reqData.result.filter(function(ele) {
-  //       return hashArr[7] == ele.id;
-  //     })[0]["name"];
-  //      commit(UPDATE_RESULT, result);
-  //   }
-  // },
+   
   initOperEles({ commit, state }, p) {
     var cb = p && p.cb;
-    axios({
-      method: "get",
-      url: "http://121.42.29.188:9773/login",
-      timeout: 30000,
-      headers: {
-        "Content-Type": "application/json;charset=utf-8"
-      }
-      // data: {
-      //   name: 'wise',
-      //   info: 'wrong'
-      // }
-    }).then(
-      response => {
-        // success callback
-        console.log(response);
-      },
-      response => {
-        // error callback
-      }
-    );
+    // axios({
+    //   method: "get",
+    //   baseURL: "http://121.42.29.188:9773/login",
+    //   timeout: 30000,
+    //   headers: {
+    //     "Content-Type": "application/json;charset=utf-8"
+    //   }
+    //   // params: {
+    //   //   name: 'wise',
+    //   //   info: 'wrong'
+    //   // }
+    // }).then(
+    //   res => {
+    //     // success callback
+    //     console.log(res);
+    //   },
+    //   err => {
+    //     // error callback
+    //   }
+    // );
+    reqData
+      .req({ url: "http://121.42.29.188:9773/login" })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     commit(INIT_OPERELES, operEles);
     cb && cb();
   },
