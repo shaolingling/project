@@ -16,8 +16,8 @@
 
 <script>
 import top from './../components/top.vue'
-import { companyList, operEles } from '../assets/data/data.js'
-//import store from './../store'
+//import { operEles } from '../assets/data/data.js'
+import store from './../store'
 export default {
     components: { top },
     name: 'marOperEles',
@@ -26,12 +26,16 @@ export default {
 
         }
     },
+      beforeRouteEnter(to, from, next) {
+        store.dispatch('initOperEles', { cb: next })
+    },
     computed: {
         company() {
             return this.$store.getters.getCompanyName ||sessionStorage.getItem("companyName")
         },
         operEles() {
-            return operEles
+           // return operEles
+            return this.$store.getters.getOperEles
         }
     },
     methods: {

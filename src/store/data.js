@@ -1,12 +1,16 @@
 import Vue from "vue";
+import axios from "axios";
 import reqData from "../assets/data/data.js";
+import { operEles } from "../assets/data/data.js";
 const UPDATE_COMPANY = "UPDATE_COMPANY";
 const UPDATE_MAROPERELE = "UPDATE_MAROPERELE";
 const UPDATE_RESULT = "UPDATE_RESULT";
+const INIT_OPERELES = "INIT_OPERELES";
 const state = {
   companyName: "",
   marOperEle: "",
-  result: ""
+  result: "",
+  operEles: ""
 };
 const actions = {
   // refresh({ commit, state }, p) {
@@ -30,17 +34,39 @@ const actions = {
   //      commit(UPDATE_RESULT, result);
   //   }
   // },
+  initOperEles({ commit, state }, p) {
+    var cb = p && p.cb;
+    axios({
+      method: "get",
+      url: "http://121.42.29.188:9773/login",
+      timeout: 30000,
+      headers: {
+        "Content-Type": "application/json;charset=utf-8"
+      }
+      // data: {
+      //   name: 'wise',
+      //   info: 'wrong'
+      // }
+    }).then(
+      response => {
+        // success callback
+        console.log(response);
+      },
+      response => {
+        // error callback
+      }
+    );
+    commit(INIT_OPERELES, operEles);
+    cb && cb();
+  },
   updateCompany({ commit, state }, companyName) {
     commit(UPDATE_COMPANY, companyName);
-   
   },
   updateMarOperEle({ commit, state }, marOperEle) {
     commit(UPDATE_MAROPERELE, marOperEle);
-    
   },
   updateResult({ commit, state }, result) {
     commit(UPDATE_RESULT, result);
-    
   }
 };
 const mutations = {
@@ -52,6 +78,9 @@ const mutations = {
   },
   [UPDATE_RESULT](state, result) {
     state.result = result;
+  },
+  [INIT_OPERELES](state, operEles) {
+    state.operEles = operEles;
   }
 };
 const getters = {
@@ -63,6 +92,9 @@ const getters = {
   },
   getResult: state => {
     return state.result;
+  },
+  getOperEles: state => {
+    return state.operEles;
   }
 };
 export default {

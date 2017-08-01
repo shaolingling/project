@@ -17,18 +17,39 @@ export default {
   name: 'index',
   data() {
     return {
-         companyName:""
+      companyName: ""
     }
+  },
+  mounted() {
+    // this.$http.get("http://121.42.29.188:9773/login").then(response => {
+    //   // success callback
+    //   console.log(response)
+    // }, response => {
+    //   // error callback
+    // })
+    this.$ajax({
+      method: 'get',
+      url: 'http://121.42.29.188:9773/login',
+      // data: {
+      //   name: 'wise',
+      //   info: 'wrong'
+      // }
+    }).then(response => {
+      // success callback
+      console.log(response)
+    }, response => {
+      // error callback
+    })
   },
   methods: {
     search() {
       let _this = this
       store.dispatch('updateCompany', _this.companyName.trim())
-       sessionStorage.setItem("companyName",_this.companyName.trim());
-       companyList.forEach(function(element) {
-         if(_this.companyName.trim() == element.name ){
-           _this.$router.push({ name: 'company', params: { id: element.id }})
-         }
+      sessionStorage.setItem("companyName", _this.companyName.trim());
+      companyList.forEach(function (element) {
+        if (_this.companyName.trim() == element.name) {
+          _this.$router.push({ name: 'company', params: { id: element.id } })
+        }
       });
     }
   }
