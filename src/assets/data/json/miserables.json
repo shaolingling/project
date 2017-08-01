@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    {"id":"欢乐精灵", "group":1 },
+    {"id":"丧尸", "group":1 },
+    {"id":"折扣", "group":1 },
+    {"id":"欢乐谷", "group":1 },
+    {"id":"糖果", "group":1 },
+    {"id":"远古", "group":1 },
+    {"id":"爱情", "group":1 },
+    {"id":"争夺", "group":1 }
+  ],
+  "links":[
+    {"source": "欢乐谷","target":"欢乐精灵","value":0.4},
+    {"source": "欢乐谷","target":"丧尸","value":0.42},
+    {"source": "欢乐谷","target":"折扣","value":0.43},
+    {"source": "欢乐谷","target":"糖果","value":0.44},
+    {"source": "欢乐谷","target":"远古","value":0.36},
+    {"source": "欢乐谷","target":"爱情","value":0.47},
+    {"source": "欢乐谷","target":"争夺","value":0.44}
+  ]
+}
