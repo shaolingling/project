@@ -21,25 +21,19 @@ export default {
     }
   },
   mounted() {
-    // this.$http.get("http://121.42.29.188:9773/login").then(response => {
+    // this.$ajax({
+    //   method: 'get',
+    //   url: 'http://121.42.29.188:9773/login',
+    //   // data: {
+    //   //   name: 'wise',
+    //   //   info: 'wrong'
+    //   // }
+    // }).then(response => {
     //   // success callback
     //   console.log(response)
     // }, response => {
     //   // error callback
     // })
-    this.$ajax({
-      method: 'get',
-      url: 'http://121.42.29.188:9773/login',
-      // data: {
-      //   name: 'wise',
-      //   info: 'wrong'
-      // }
-    }).then(response => {
-      // success callback
-      console.log(response)
-    }, response => {
-      // error callback
-    })
   },
   methods: {
     search() {

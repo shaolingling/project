@@ -1,4 +1,4 @@
-var Data = {
+var testData = {
   companyList: [
     { id: "01", name: "A公司" },
     { id: "02", name: "B公司" },
@@ -22,8 +22,37 @@ var Data = {
   ]
 };
 
-export default Data;
-export const companyList = Data.companyList;
-export const operEles = Data.operEles;
-export const result = Data.result;
+//export default Data;
+export default function (p) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(
+      function () {
+        const response = {
+          // `data` is the response that was provided by the server
+          data: {},
+
+          // `status` is the HTTP status code from the server response
+          status: 200,
+
+          // `statusText` is the HTTP status message from the server response
+          statusText: 'OK',
+
+          // `headers` the headers that the server responded with
+          headers: {},
+
+          // `config` is the config that was provided to `axios` for the request
+          config: {}
+        }
+        response.data = testData[p.apiName]
+        response.config = p
+        resolve(response)
+      },
+      100
+    )
+  })
+}
+ 
+export const companyList = testData.companyList;
+export const operEles = testData.operEles;
+export const result = testData.result;
 

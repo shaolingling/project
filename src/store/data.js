@@ -1,6 +1,6 @@
 import Vue from "vue";
-import axios from "axios";
-import { operEles } from "../assets/data/data.js";
+//import axios from "axios";
+//import { operEles } from "../assets/data/data.js";
 import reqData from "../reqData.js";
 const UPDATE_COMPANY = "UPDATE_COMPANY";
 const UPDATE_MAROPERELE = "UPDATE_MAROPERELE";
@@ -13,7 +13,6 @@ const state = {
   operEles: ""
 };
 const actions = {
-   
   initOperEles({ commit, state }, p) {
     var cb = p && p.cb;
     // axios({
@@ -37,15 +36,22 @@ const actions = {
     //   }
     // );
     reqData
-      .req({ url: "http://121.42.29.188:9773/login" })
+      .req({ apiName: "test" })
       .then(res => {
         console.log(res);
       })
       .catch(err => {
         console.log(err);
       });
-    commit(INIT_OPERELES, operEles);
-    cb && cb();
+    reqData
+      .req({ apiName: "operEles" })
+      .then(res => {
+        commit(INIT_OPERELES, res.data);
+        cb && cb();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   updateCompany({ commit, state }, companyName) {
     commit(UPDATE_COMPANY, companyName);
