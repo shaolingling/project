@@ -2,31 +2,60 @@
   <div>
     <top></top>
     <div class="search">
-      <input placeholder="请输入公司名称" type="text" v-model="companyName">
-      <span @click="search">搜索</span>
+      <search :size="size"></search>
     </div>
+    <div class="hot">
+      <el-card class="box-card" :body-style="{ height: '300px',overflow:'auto' }">
+        <div slot="header" class="clearfix">
+          <span style="line-height: 20px;">热点公司</span>
+        </div>
+        <div v-for="item in hotcoms"  class="text item">
+          {{item.companyName}}
+        </div>
+      </el-card>
+      <el-card class="box-card" :body-style="{ height: '300px',overflow:'auto' }">
+        <div slot="header" class="clearfix">
+          <span style="line-height: 20px;">热点新闻</span>
+        </div>
+        <div v-for="item in [{n:1,x:1},{n:2,x:2},{n:3,x:3},{n:4,x:4}]" :key="item.n" class="text item">
+          {{item.n+'. 热点新闻'+ item.x}}
+        </div>
+      </el-card>
+    </div>
+    {{hotcoms[0].companyName}}
   </div>
 </template>
 
 <script>
 import top from './../components/top.vue'
+import search from './../components/search.vue'
 import { companyList } from '../assets/data/data.js'
 import store from './../store'
 export default {
-  components: { top },
+  components: { top, search },
   name: 'index',
+  beforeRouteEnter: (to, from, next) => {
+       store.dispatch('updateHotcoms', { cb: next })
+  },
   data() {
     return {
-      companyName: ""
+      size: "large"
     }
   },
-  mounted() {
+  computed:{
+     hotcoms(){
+        debugger
+       return this.$store.getters.getHotcoms   
+     }
+  }
+ // mounted() {
+    
     // this.$ajax({
-    //   method: 'get',
-    //   url: 'http://121.42.29.188:9773/login',
-    //   // data: {
-    //   //   name: 'wise',
-    //   //   info: 'wrong'
+    //   method: 'post',
+    //   url: 'http://121.42.29.188:9775/text',
+    //   // data:{
+    //   //   a:"a",
+    //   //   b:"b"
     //   // }
     // }).then(response => {
     //   // success callback
@@ -34,34 +63,53 @@ export default {
     // }, response => {
     //   // error callback
     // })
-  },
-  methods: {
-    search() {
-      let _this = this
-      store.dispatch('updateCompany', _this.companyName.trim())
-      sessionStorage.setItem("companyName", _this.companyName.trim());
-      companyList.forEach(function (element) {
-        if (_this.companyName.trim() == element.name) {
-          _this.$router.push({ name: 'company', params: { id: element.id } })
-        }
-      });
-    }
-  }
+ // },
+
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .search {
+  width: 50%;
+  margin: 0 auto;
   margin-top: 100px;
 }
 
-.search input {
-  width: 300px;
-  height: 30px;
+.hot {
+  width: 1000px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 60px;
 }
 
-.search span {
-  cursor: pointer;
+.text {
+  font-size: 14px;
+}
+
+.item {
+  padding: 18px 0;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
+
+.box-card {
+  width: 480px;
+}
+
+.box-card:nth-of-type(1) {
+  float: left;
+}
+
+.box-card:nth-of-type(2) {
+  float: right;
 }
 </style>

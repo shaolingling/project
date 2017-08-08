@@ -1,10 +1,12 @@
 import Vue from "vue";
 import Router from "vue-router";
 import index from "@/views/index";
-import company from "@/views/company";
+import basicinfo from "@/views/basicinfo";
 import marOperEles from "@/views/marOperEles";
 import marOperEle from "@/views/marOperEle";
 import result from "@/views/result";
+import depanalysis from  "@/views/depanalysis";
+import seresults from "@/views/seresults"; //返回结果列表页
 //import person from "@/views/person";
 Vue.use(Router);
 
@@ -16,22 +18,32 @@ export default new Router({
       component: index
     },
     {
-      path: "/company/:id",
-      name: "company",
-      component: company
+      path: "/seresults",
+      name: "seresults",
+      component: seresults
     },
     {
-      path: "/company/:id/marOperEles",
+      path: "/basicinfo",
+      name: "basicinfo",
+      component: basicinfo
+    },
+    {
+       path: "/depanalysis",
+      name: "depanalysis",
+      component: depanalysis
+    },
+    {
+      path: "/company/marOperEles",
       name: "marOperEles",
       component: marOperEles
     },
     {
-      path: "/company/:id/marOperEles/marOperEle/:ele",
+      path: "/company/marOperEles/marOperEle",
       name: "marOperEle",
       component: marOperEle
     },
     {
-      path: "/company/:id/marOperEles/marOperEle/:ele/result/:id",
+      path: "/company/marOperEles/marOperEle/result",
       name: "result",
       component: result
     }

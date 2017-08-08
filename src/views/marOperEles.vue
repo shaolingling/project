@@ -16,7 +16,6 @@
 
 <script>
 import top from './../components/top.vue'
-//import { operEles } from '../assets/data/data.js'
 import store from './../store'
 export default {
     components: { top },
@@ -26,7 +25,7 @@ export default {
 
         }
     },
-      beforeRouteEnter(to, from, next) {
+    beforeRouteEnter(to, from, next) {
         store.dispatch('initOperEles', { cb: next })
     },
     computed: {
@@ -40,7 +39,7 @@ export default {
     },
     methods: {
         eleSel(ele) {
-            this.$router.push({ name: 'marOperEle', params: { ele:ele.ename} })   
+            this.$router.push({ name: 'marOperEle'})   
              this.$store.dispatch('updateMarOperEle',ele.cname)
              sessionStorage.setItem("marOperEle", ele.cname);
         }

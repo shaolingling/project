@@ -122,7 +122,7 @@ export default {
     },
     methods: {
         itemSel(item) {
-            this.$router.push({ name: 'result', params: { id: item.id } })
+            this.$router.push({ name: 'result'})
             this.$store.dispatch('updateResult', item.name)
             sessionStorage.setItem("result", item.name);
         }

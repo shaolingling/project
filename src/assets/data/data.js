@@ -1,8 +1,8 @@
 var testData = {
   companyList: [
-    { id: "01", name: "A公司" },
-    { id: "02", name: "B公司" },
-    { id: "03", name: "c公司" }
+    { id: "001", name: "A公司",regCap:"",legalRep:"",estabTime:"",involLiti:"",operating:"",assetTrans:"" },
+    { id: "002", name: "B公司",regCap:"",legalRep:"",estabTime:"",involLiti:"",operating:"",assetTrans:"" },
+    { id: "003", name: "c公司",regCap:"",legalRep:"",estabTime:"",involLiti:"",operating:"",assetTrans:"" }
   ],
   operEles: [
     { ename: "position", cname: "岗位" },

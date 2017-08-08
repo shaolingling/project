@@ -18,11 +18,6 @@
 <script>
 export default {
   name: 'top',
-  data () {
-    return {
-      
-    }
-  }
 }
 </script>
 
