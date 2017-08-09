@@ -1,9 +1,33 @@
 <template>
     <div>
-        <el-autocomplete   popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search"></el-autocomplete>
+         <el-autocomplete popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search">      
+        </el-autocomplete> 
+         <!--<el-autocomplete popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search">      
+        </el-autocomplete> -->
+       
     </div>
 </template>
+
 <script>
+import Vue from 'vue'
+// Vue.component('my-zh', {
+//     functional: true,
+//     render: function (h, ctx) {
+//        // var item = ctx.props.item;
+//         return h('ul', ctx.data, [
+//             h('li', { attrs: { class: 'name' } }, ["1"]),
+//           //  h('div', { attrs: { class: 'name' } }, [item.value]),
+//            // h('span', { attrs: { class: 'addr' } }, [item.address])
+//         ]);
+//     },
+//     props: {
+//         item: { type: Object, required: true }
+//     }
+// });
+// var myAppendTo = Vue.extend({
+//     template: '<p>appendTo</p>'
+// })
+//new myAppendTo().$mount().$appendTo('#app');//appendTo
 export default {
     name: 'search',
     data() {
@@ -38,10 +62,7 @@ export default {
             };
         },
         search() {
-
             let _this = this
-            //this.$store.dispatch('updateCompany', _this.companyName.trim())
-            // sessionStorage.setItem("companyName", _this.companyName.trim())
             this.$store.dispatch('updateSeresults')
             this.setHistoryItems(_this.companyName.trim())
             _this.$router.push({ name: 'seresults' })

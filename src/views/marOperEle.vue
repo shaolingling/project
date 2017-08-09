@@ -89,7 +89,7 @@ export default {
         reList() {
             let _this = this
             return result.filter(function (element) {
-                debugger
+                
                 if (_this.value_n && _this.value_s && _this.value_p) {
                     return element.nature == _this.value_n &&
                         element.society == _this.value_s &&

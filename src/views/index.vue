@@ -44,7 +44,7 @@ export default {
   },
   computed:{
      hotcoms(){
-        debugger
+        
        return this.$store.getters.getHotcoms   
      }
   }

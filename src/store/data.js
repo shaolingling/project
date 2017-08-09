@@ -69,7 +69,7 @@ const actions = {
     //  reqData
     //   .req({ apiName: "test" })
     //   .then(res => {
-    //      debugger
+    //      
     //     console.log(res);
     //   })
     //   .catch(err => {
@@ -94,7 +94,7 @@ const actions = {
         res = res.data;
         console.log(res);
         if (res && res.code === "200") {
-          debugger
+          
           commit(UPDATE_HOTCOMS, res.data);
           cb && cb();
         }
@@ -124,7 +124,7 @@ const mutations = {
     state.analysisProperty = analysisProperty;
   },
   [UPDATE_HOTCOMS](state, hotcoms) {
-    debugger
+    
     state.hotcoms = hotcoms;
   }
 };
@@ -148,7 +148,7 @@ const getters = {
     return state.analysisProperty;
   },
   getHotcoms: state => {
-    debugger
+    
     return state.hotcoms;
   }
 };
