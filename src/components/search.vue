@@ -7,40 +7,24 @@
 
 <script>
 import Vue from 'vue'
-
-// Vue.component('my-zh', {
-//     functional: true,
-//     render: function (h, ctx) {
-//        // var item = ctx.props.item;
-//         return h('ul', ctx.data, [
-//             h('li', { attrs: { class: 'name' } }, ["1"]),
-//           //  h('div', { attrs: { class: 'name' } }, [item.value]),
-//            // h('span', { attrs: { class: 'addr' } }, [item.address])
-//         ]);
-//     },
-//     props: {
-//         item: { type: Object, required: true }
-//     }
-// });
-// var myAppendTo = Vue.extend({
-//     template: '<p>appendTo</p>'
-// })
-//new myAppendTo().$mount().$appendTo('#app');//appendTo
 export default {
     name: 'search',
     data() {
         return {
             companyName: "",
+            historyItems:"",
         }
     },
     props: ['size'],
     computed: {
         companys() {
-            if (localStorage.historyItems === undefined) {
+            this.historyItems = localStorage.historyItems
+            if (this.historyItems === undefined) {
                 return []
             } else {
+                debugger
                 let companylist = [];
-                localStorage.historyItems.split('|').forEach(function (element) {
+                this.historyItems.split('|').forEach(function (element) {
                     companylist.push({ "value": element })
                 });
                 return companylist
@@ -53,16 +37,19 @@ export default {
         newdiv.id = "clean-his";
         var newtext = document.createTextNode("清除历史记录");
         newdiv.appendChild(newtext);
+        var _this = this
         newdiv.addEventListener("click", function () {
-            alert("1")
-            this.clearHistory()
+            _this.clearHistory()
         });
         newdiv.style.backgroundColor ="#fff"
         newdiv.style.height ="40px"
         newdiv.style.lineHeight ="40px"
-       newdiv.style.cursor ="pointer"
+        newdiv.style.width ="calc(100%-2px)"        
+        newdiv.style.paddingLeft ="10px"
+        newdiv.style.position ="relative"
+        newdiv.style.top ="-1px"
+        newdiv.style.cursor ="pointer"
         autoDom.appendChild(newdiv);
-        console.log(newdiv)
     },
     methods: {
         querySearch(queryString, cb) {
@@ -93,7 +80,9 @@ export default {
             }
         },
         clearHistory() {
+            debugger
             localStorage.removeItem('historyItems');
+             this.historyItems = localStorage.historyItems;
         },
     }
 }
@@ -101,5 +90,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- 
+ .el-autocomplete {
+    width: 100%;
+}
 </style>
