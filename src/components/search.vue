@@ -1,15 +1,13 @@
 <template>
     <div>
-         <el-autocomplete popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search">      
-        </el-autocomplete> 
-         <!--<el-autocomplete popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search">      
-        </el-autocomplete> -->
-       
+        <el-autocomplete popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search">
+        </el-autocomplete>
     </div>
 </template>
 
 <script>
 import Vue from 'vue'
+
 // Vue.component('my-zh', {
 //     functional: true,
 //     render: function (h, ctx) {
@@ -49,6 +47,23 @@ export default {
             }
         }
     },
+    mounted() {
+        var autoDom = document.getElementsByClassName("el-autocomplete-suggestion")[0]
+        var newdiv = document.createElement("div");
+        newdiv.id = "clean-his";
+        var newtext = document.createTextNode("清除历史记录");
+        newdiv.appendChild(newtext);
+        newdiv.addEventListener("click", function () {
+            alert("1")
+            this.clearHistory()
+        });
+        newdiv.style.backgroundColor ="#fff"
+        newdiv.style.height ="40px"
+        newdiv.style.lineHeight ="40px"
+       newdiv.style.cursor ="pointer"
+        autoDom.appendChild(newdiv);
+        console.log(newdiv)
+    },
     methods: {
         querySearch(queryString, cb) {
             var companys = this.companys;
@@ -86,7 +101,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.el-autocomplete {
-    width: 100%;
-}
+ 
 </style>

@@ -66,15 +66,7 @@ const actions = {
   },
   updateSeresults({ commit, state }, p) {
     var cb = p && p.cb;
-    //  reqData
-    //   .req({ apiName: "test" })
-    //   .then(res => {
-    //      
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+  
     reqData
       .req({ apiName: "companyList" })
       .then(res => {
@@ -93,9 +85,12 @@ const actions = {
       .then(res => {
         res = res.data;
         console.log(res);
-        if (res && res.code === "200") {
-          
-          commit(UPDATE_HOTCOMS, res.data);
+        if (res && res.code === "200") { 
+          let data = res.data 
+          // data.forEach(function(element) {
+          //    element.companyName = element.companyName
+          // });   
+          commit(UPDATE_HOTCOMS, data);
           cb && cb();
         }
       })
