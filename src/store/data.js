@@ -101,7 +101,7 @@ const actions = {
       });
   },
   updateBasicInfo({ commit, state }, options) {
-     debugger
+     
     reqData
       .req({
         apiName: "basicinfo",

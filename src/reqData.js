@@ -39,7 +39,6 @@ export default {
     } else { 
       req_obj = Object.assign({},req_obj,p)
       delete req_obj.apiName
-      debugger
       return $ajax(req_obj);
     }
   }
