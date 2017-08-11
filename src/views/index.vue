@@ -43,8 +43,7 @@ export default {
     }
   },
   computed:{
-     hotcoms(){
-        
+     hotcoms(){     
        return this.$store.getters.getHotcoms   
      }
   }

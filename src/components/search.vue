@@ -2,6 +2,13 @@
     <div>
         <el-autocomplete popper-class="my-autocomplete" :size="size" class="inline-input" v-model="companyName" icon="search" :fetch-suggestions="querySearch" placeholder="请输入公司名称" :on-icon-click="search">
         </el-autocomplete>
+        <el-dialog :visible.sync="dialogVisible" size="tiny">
+            <span>确认清除所有的历史记录吗？</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="clearHistory">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -12,7 +19,8 @@ export default {
     data() {
         return {
             companyName: "",
-            historyItems:"",
+            historyItems: "",
+            dialogVisible: false,
         }
     },
     props: ['size'],
@@ -22,7 +30,7 @@ export default {
             if (this.historyItems === undefined) {
                 return []
             } else {
-                debugger
+
                 let companylist = [];
                 this.historyItems.split('|').forEach(function (element) {
                     companylist.push({ "value": element })
@@ -39,16 +47,20 @@ export default {
         newdiv.appendChild(newtext);
         var _this = this
         newdiv.addEventListener("click", function () {
-            _this.clearHistory()
+           // _this.clearHistory()
+           _this.dialogVisible = true
         });
-        newdiv.style.backgroundColor ="#fff"
-        newdiv.style.height ="40px"
-        newdiv.style.lineHeight ="40px"
-        newdiv.style.width ="calc(100%-2px)"        
-        newdiv.style.paddingLeft ="10px"
-        newdiv.style.position ="relative"
-        newdiv.style.top ="-1px"
-        newdiv.style.cursor ="pointer"
+        newdiv.style.backgroundColor = "#fff"
+        newdiv.style.height = "40px"
+        newdiv.style.lineHeight = "40px"
+        //  var newdivWidth = autoDom.offsetWidth - 4
+        //  console.log(newdivWidth)
+        //  newdiv.style.width = "690px"
+        newdiv.style.paddingLeft = "10px"
+        newdiv.style.position = "relative"
+        newdiv.style.top = "-1px"
+
+        newdiv.style.cursor = "pointer"
         autoDom.appendChild(newdiv);
     },
     methods: {
@@ -80,17 +92,17 @@ export default {
             }
         },
         clearHistory() {
-            debugger
+            this.dialogVisible = false;
             localStorage.removeItem('historyItems');
-             this.historyItems = localStorage.historyItems;
-        },
+            this.historyItems = localStorage.historyItems;
+        },       
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- .el-autocomplete {
+.el-autocomplete {
     width: 100%;
 }
 </style>

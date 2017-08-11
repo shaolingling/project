@@ -3,7 +3,7 @@ import testData from "./assets/data/data.js";
 
 const axiosConfig = {
   method: "post", //default
-  baseURL: "http://121.42.29.188:9775",
+  baseURL: "http://121.42.29.188:9776",
   timeout: 30000,
   transformRequest: [
     function(data) {
@@ -18,18 +18,17 @@ const axiosConfig = {
 };
 let $ajax = axios.create(axiosConfig);
 const requestApi = {
-  //test
-  // test: {
-  //   url: "/seresults",
-  //   method: "post",
-  //   data: {
-  //     name: "a",
-  //     id: "001"
-  //   }
-  // }
     hotcoms: {
     url: "/hotcoms",
     method: "post",
+  },
+  basicinfo:{
+     url: "/basicinfo",
+      method: "post", 
+      data:{
+        companyId:"001",
+        basicPropertyId:"01",
+      }  
   }
 };
 export default {
@@ -37,8 +36,10 @@ export default {
     var req_obj = requestApi[p.apiName];
     if (!req_obj) {
       return testData(p); //取前端moke数据
-    } else {
+    } else { 
       req_obj = Object.assign({},req_obj,p)
+      delete req_obj.apiName
+      debugger
       return $ajax(req_obj);
     }
   }

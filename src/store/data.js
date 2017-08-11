@@ -9,6 +9,7 @@ const INIT_OPERELES = "INIT_OPERELES";
 const UPDATE_SERESULTS = "UPDATE_SERESULTS";
 const UPDATE_ANALYSISPROPERTY = "UPDATE_ANALYSISPROPERTY";
 const UPDATE_HOTCOMS = "UPDATE_HOTCOMS";
+const UPDATE_BASICINFO = "UPDATE_BASICINFO";
 const state = {
   companyInfo: {},
   analysisProperty: {},
@@ -16,7 +17,8 @@ const state = {
   result: "",
   operEles: "",
   seresults: [], //模糊搜索得到的公司列表
-  hotcoms: []
+  hotcoms: [],
+  basicInfo: ""
 };
 const actions = {
   initOperEles({ commit, state }, p) {
@@ -66,7 +68,7 @@ const actions = {
   },
   updateSeresults({ commit, state }, p) {
     var cb = p && p.cb;
-  
+
     reqData
       .req({ apiName: "companyList" })
       .then(res => {
@@ -85,13 +87,37 @@ const actions = {
       .then(res => {
         res = res.data;
         console.log(res);
-        if (res && res.code === "200") { 
-          let data = res.data 
+        if (res && res.code === "200") {
+          let data = res.data;
           // data.forEach(function(element) {
           //    element.companyName = element.companyName
-          // });   
+          // });
           commit(UPDATE_HOTCOMS, data);
           cb && cb();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  updateBasicInfo({ commit, state }, options) {
+     debugger
+    reqData
+      .req({
+        apiName: "basicinfo",
+        data: {
+          companyId: options.companyId,
+          basicPropertyId: options.basicPropertyId
+        }
+      })
+      .then(res => {
+       
+        res = res.data;
+        console.log(res);
+        if (res && res.code === "200") {
+          let data = res.data;
+          commit(UPDATE_BASICINFO, data);
+          sessionStorage.setItem("basicInfo", JSON.stringify(data));
         }
       })
       .catch(err => {
@@ -119,8 +145,10 @@ const mutations = {
     state.analysisProperty = analysisProperty;
   },
   [UPDATE_HOTCOMS](state, hotcoms) {
-    
     state.hotcoms = hotcoms;
+  },
+  [UPDATE_BASICINFO](state, basicInfo) {
+    state.basicInfo = basicInfo;
   }
 };
 const getters = {
@@ -143,8 +171,10 @@ const getters = {
     return state.analysisProperty;
   },
   getHotcoms: state => {
-    
     return state.hotcoms;
+  },
+  getBasicInfo: state => {
+    return state.basicInfo;
   }
 };
 export default {

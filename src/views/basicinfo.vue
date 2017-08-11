@@ -5,7 +5,7 @@
         <div class="basic_info">
             <span>基本信息</span>
             <ul>
-                <li>工商资料</li>
+                <li @click="getBasicInfo('01')">工商资料</li>
                 <li>新闻事件</li>
                 <li>涉诉事件</li>
                 <li>经营活动</li>
@@ -17,7 +17,11 @@
         </div>
         <div class="wrap">
             <div class="result">
-                <div class="result_inner"></div>
+                <div class="result_inner">
+                    <ul>
+                        <li>{{basicInfo}}</li>
+                    </ul>
+                </div>
             </div>
             <div class="depth_info">
                 <span>深度信息</span>
@@ -43,12 +47,21 @@ export default {
         companyName() {
             return this.$store.getters.getCompanyInfo.name || JSON.parse(sessionStorage.getItem("companyInfo")).name
         },
+        companyId() {
+            return this.$store.getters.getCompanyInfo.id || JSON.parse(sessionStorage.getItem("companyInfo")).id
+        },
+        basicInfo() {
+            return this.$store.getters.getBasicInfo||JSON.parse(sessionStorage.getItem("basicInfo"));
+        }
     },
-    methods:{
-        depanalysis(id,name){
-           this.$router.push({name:"depanalysis"})
-           this.$store.dispatch('updateAnalysisProperty',{id:id,name:name})
-           sessionStorage.setItem("analysisProperty",JSON.stringify({id:id,name:name}))
+    methods: {
+        depanalysis(id, name) {
+            this.$router.push({ name: "depanalysis" })
+            this.$store.dispatch('updateAnalysisProperty', { id: id, name: name })
+            sessionStorage.setItem("analysisProperty", JSON.stringify({ id: id, name: name }))
+        },
+        getBasicInfo(id) {
+            this.$store.dispatch('updateBasicInfo',{companyId:this.companyId,basicPropertyId:id})
         }
     }
 }
@@ -59,23 +72,28 @@ export default {
 h2 {
     text-align: center;
 }
+
 .basic_info {
     text-align: center;
 }
+
 .basic_info ul,
 .basic_info span {
     display: inline-block;
     font-size: 18px;
 }
+
 .basic_info span {
     padding: 10px 18px;
 }
+
 .basic_info li {
     display: inline-block;
     margin-left: 20px;
     border: 1px solid #ddd;
     padding: 10px 18px;
 }
+
 .depth_info {
     width: 20%;
     float: left;
@@ -89,14 +107,16 @@ h2 {
 }
 
 .result {
-    width: 80%; 
-    float: left; 
+    width: 80%;
+    float: left;
 }
+
 .result_inner {
     border: 1px solid #ddd;
     margin: 10px 60px;
     min-height: 400px;
 }
+
 .wrap {
     margin: 50px 100px;
     font-size: 18px;
