@@ -6,21 +6,19 @@
             <span>基本信息</span>
             <ul>
                 <li @click="getBasicInfo('01')">工商资料</li>
-                <li>新闻事件</li>
-                <li>涉诉事件</li>
-                <li>经营活动</li>
-                <li>拥有专利</li>
-                <li>交易股票</li>
-                <li>市场份额</li>
-                <li>合作企业</li>
+                <li @click="getBasicInfo('02')">新闻事件</li>
+                <li @click="getBasicInfo('03')">涉诉事件</li>
+                <li @click="getBasicInfo('04')">经营活动</li>
+                <li @click="getBasicInfo('05')">拥有专利</li>
+                <li @click="getBasicInfo('06')">交易股票</li>
+                <li @click="getBasicInfo('07')">市场份额</li>
+                <li @click="getBasicInfo('08')">合作企业</li>
             </ul>
         </div>
         <div class="wrap">
             <div class="result">
                 <div class="result_inner">
-                    <ul>
-                        <li>{{basicInfo}}</li>
-                    </ul>
+                    {{basicInfo}}           
                 </div>
             </div>
             <div class="depth_info">
@@ -92,6 +90,7 @@ h2 {
     margin-left: 20px;
     border: 1px solid #ddd;
     padding: 10px 18px;
+    cursor: pointer;
 }
 
 .depth_info {
@@ -104,6 +103,7 @@ h2 {
     margin-top: 30px;
     border: 1px solid #ddd;
     padding: 10px 18px;
+    cursor: pointer;
 }
 
 .result {
