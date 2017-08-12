@@ -3,66 +3,50 @@ import Vue from "vue";
 //import { operEles } from "../assets/data/data.js";
 import reqData from "../reqData.js";
 const UPDATE_COMPANY = "UPDATE_COMPANY";
-const UPDATE_MAROPERELE = "UPDATE_MAROPERELE";
 const UPDATE_RESULT = "UPDATE_RESULT";
-const INIT_OPERELES = "INIT_OPERELES";
 const UPDATE_SERESULTS = "UPDATE_SERESULTS";
 const UPDATE_ANALYSISPROPERTY = "UPDATE_ANALYSISPROPERTY";
 const UPDATE_HOTCOMS = "UPDATE_HOTCOMS";
+const UPDATE_HOTNEWS = "UPDATE_HOTNEWS";
 const UPDATE_BASICINFO = "UPDATE_BASICINFO";
+const UPDATE_DEPANALYRES = "UPDATE_DEPANALYRES";
 const state = {
   companyInfo: {},
-  analysisProperty: {},
-  marOperEle: "",
+  analysisProperty: [],
   result: "",
-  operEles: "",
   seresults: [], //模糊搜索得到的公司列表
   hotcoms: [],
-  basicInfo: ""
+  hotnews: [],
+  basicInfo: "",
+  depAnalyRes: []
 };
 const actions = {
-  initOperEles({ commit, state }, p) {
-    var cb = p && p.cb;
-    // axios({
-    //   method: "get",
-    //   baseURL: "http://121.42.29.188:9773/login",
-    //   timeout: 30000,
-    //   headers: {
-    //     "Content-Type": "application/json;charset=utf-8"
-    //   }
-    //   // params: {
-    //   //   name: 'wise',
-    //   //   info: 'wrong'
-    //   // }
-    // }).then(
-    //   res => {
-    //     // success callback
-    //     console.log(res);
-    //   },
-    //   err => {
-    //     // error callback
-    //   }
-    // );
-
+  updateCompany({ commit, state }, companyInfo) {
+    commit(UPDATE_COMPANY, companyInfo);
+  },
+  updateAnalysisProperty({ commit, state }, options) {
     reqData
-      .req({ apiName: "operEles" })
+      .req({
+        apiName: "depanalysis",
+        data: {
+          companyId: options.id,
+          analysisPropertyId: options.name
+        }
+      })
       .then(res => {
-        commit(INIT_OPERELES, res.data);
-        cb && cb();
+        res = res.data;
+        console.log(res);
+        if (res && res.code === "200") {
+          let data = res.data;
+          commit(UPDATE_ANALYSISPROPERTY, data);
+          sessionStorage.setItem("analysisProperty", JSON.stringify(data));
+        }
       })
       .catch(err => {
         console.log(err);
       });
   },
-  updateCompany({ commit, state }, companyInfo) {
-    commit(UPDATE_COMPANY, companyInfo);
-  },
-  updateAnalysisProperty({ commit, state }, analysisProperty) {
-    commit(UPDATE_ANALYSISPROPERTY, analysisProperty);
-  },
-  updateMarOperEle({ commit, state }, marOperEle) {
-    commit(UPDATE_MAROPERELE, marOperEle);
-  },
+
   updateResult({ commit, state }, result) {
     commit(UPDATE_RESULT, result);
   },
@@ -70,8 +54,10 @@ const actions = {
     var cb = p && p.cb;
 
     reqData
-      .req({ apiName: "companyList" })
+      .req({ apiName: "seresults" })
       .then(res => {
+        res = res.data;
+        console.log(res);
         commit(UPDATE_SERESULTS, res.data);
         sessionStorage.setItem("seresults", JSON.stringify(res.data));
         cb && cb();
@@ -100,8 +86,24 @@ const actions = {
         console.log(err);
       });
   },
+  updateHotnews({ commit, state }, p) {
+    var cb = p && p.cb;
+    reqData
+      .req({ apiName: "hotnews" })
+      .then(res => {
+        res = res.data;
+        console.log(res);
+        if (res && res.code === "200") {
+          let data = res.data;
+          commit(UPDATE_HOTNEWS, data);
+          cb && cb();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   updateBasicInfo({ commit, state }, options) {
-     
     reqData
       .req({
         apiName: "basicinfo",
@@ -111,7 +113,6 @@ const actions = {
         }
       })
       .then(res => {
-       
         res = res.data;
         console.log(res);
         if (res && res.code === "200") {
@@ -123,21 +124,41 @@ const actions = {
       .catch(err => {
         console.log(err);
       });
+  },
+  updateDepAnalyRes({ commit, state }, options) {
+    debugger
+    reqData
+      .req({
+        apiName: "depanalyres",
+        data: {
+          companyId: options.companyId,
+          analysisPropertyId: options.analysisPropertyId,
+          selectOpts: options.selectOpts
+        }
+      })
+      .then(res => {
+        res = res.data;
+        console.log(res);
+        if (res && res.code === "200") {
+          let data = res.data;
+          commit(UPDATE_DEPANALYRES, data);
+          //sessionStorage.setItem("depAnalyRes", JSON.stringify(data));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 const mutations = {
   [UPDATE_COMPANY](state, companyInfo) {
     state.companyInfo = companyInfo;
   },
-  [UPDATE_MAROPERELE](state, marOperEle) {
-    state.marOperEle = marOperEle;
-  },
+
   [UPDATE_RESULT](state, result) {
     state.result = result;
   },
-  [INIT_OPERELES](state, operEles) {
-    state.operEles = operEles;
-  },
+
   [UPDATE_SERESULTS](state, seresults) {
     state.seresults = seresults;
   },
@@ -147,23 +168,25 @@ const mutations = {
   [UPDATE_HOTCOMS](state, hotcoms) {
     state.hotcoms = hotcoms;
   },
+  [UPDATE_HOTNEWS](state, hotnews) {
+    state.hotnews = hotnews;
+  },
   [UPDATE_BASICINFO](state, basicInfo) {
     state.basicInfo = basicInfo;
-  }
+  },
+  [UPDATE_DEPANALYRES](state, depAnalyRes) {
+    state.depAnalyRes = depAnalyRes;
+  },
 };
 const getters = {
   getCompanyInfo: state => {
     return state.companyInfo;
   },
-  getMarOperEle: state => {
-    return state.marOperEle;
-  },
+
   getResult: state => {
     return state.result;
   },
-  getOperEles: state => {
-    return state.operEles;
-  },
+
   getSeresults: state => {
     return state.seresults;
   },
@@ -173,9 +196,15 @@ const getters = {
   getHotcoms: state => {
     return state.hotcoms;
   },
+  getHotnews: state => {
+    return state.hotnews;
+  },
   getBasicInfo: state => {
     return state.basicInfo;
-  }
+  },
+  getDepAnalyRes:state=>{
+    return state.depAnalyRes
+  },
 };
 export default {
   state,

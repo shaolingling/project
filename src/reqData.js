@@ -18,27 +18,53 @@ const axiosConfig = {
 };
 let $ajax = axios.create(axiosConfig);
 const requestApi = {
-    hotcoms: {
+  hotcoms: {
     url: "/hotcoms",
-    method: "post",
+    method: "post"
   },
-  basicinfo:{
-     url: "/basicinfo",
-      method: "post", 
-      data:{
-        companyId:"001",
-        basicPropertyId:"01",
-      }  
-  }
+  hotnews: {
+    url: "/hotnews",
+    method: "post"
+  },
+  seresults: {
+    url: "/seresults",
+    method: "post"
+  },
+  basicinfo: {
+    url: "/basicinfo",
+    method: "post",
+    data: {
+      companyId: "001",
+      basicPropertyId: "01"
+    }
+  },
+  depanalysis: {
+    url: "/depanalysis",
+    method: "post",
+    data: {
+      companyId: "001",
+      analysisPropertyId: "01"
+    }
+  },
+  depanalyres:{
+    url:"/depanalysis/result",
+    method: "post",
+    data: {
+      companyId: "001",
+      analysisPropertyId: "01",
+      selectOpts:[{id:"01",value:"成都欢乐谷"},{id:"02",value:"公园"},{id:"03",value:"价格"}],     
+    }
+
+  },
 };
 export default {
   req: function(p) {
     var req_obj = requestApi[p.apiName];
     if (!req_obj) {
       return testData(p); //取前端moke数据
-    } else { 
-      req_obj = Object.assign({},req_obj,p)
-      delete req_obj.apiName
+    } else {
+      req_obj = Object.assign({}, req_obj, p);
+      delete req_obj.apiName;
       return $ajax(req_obj);
     }
   }

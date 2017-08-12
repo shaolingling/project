@@ -22,8 +22,8 @@
 
             <table>
                 <tr class="title"><th>公司名称</th><th>注册资本</th><th>法定代表人</th><th>成立时间</th><th>涉诉</th><th>经营</th><th>资产交易</th></tr>
-                <tr v-for="item in companys" @click="basicInfo(item.id,item.name)">
-                    <td>{{item.name}}</td>
+                <tr class="content" v-for="item in companys" @click="basicInfo(item.companyId,item.companyName)">
+                    <td>{{item.companyName}}</td>
                     <td>{{item.regCap}}</td>
                     <td>{{item.legalRep}}</td>
                     <td>{{item.estabTime}}</td>
@@ -52,6 +52,7 @@ export default {
     },
     methods:{
         basicInfo(id,name){
+            debugger
              this.$store.dispatch('updateCompany',{id:id,name:name})
              sessionStorage.setItem("companyInfo",JSON.stringify({id:id,name:name}))  
              this.$router.push({ name: 'basicinfo' })
@@ -75,6 +76,9 @@ table{
 table tr.title{
     background-color: #eee;
     height:40px;
+}
+table tr{
+  cursor: pointer;
 }
 td{
     height:50px;

@@ -9,7 +9,7 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 20px;">热点公司</span>
         </div>
-        <div v-for="item in hotcoms"  class="text item">
+        <div v-for="item in hotcoms" class="text item">
           {{item.companyName}}
         </div>
       </el-card>
@@ -17,12 +17,11 @@
         <div slot="header" class="clearfix">
           <span style="line-height: 20px;">热点新闻</span>
         </div>
-        <div v-for="item in [{n:1,x:1},{n:2,x:2},{n:3,x:3},{n:4,x:4}]" :key="item.n" class="text item">
-          {{item.n+'. 热点新闻'+ item.x}}
-        </div>
+       <div v-for="item in hotnews" class="text item">
+         <a :href="item.newsHref"> {{item.newsTitle}}</a>
+        </div> 
       </el-card>
     </div>
-    {{hotcoms[0].companyName}}
   </div>
 </template>
 
@@ -35,34 +34,38 @@ export default {
   components: { top, search },
   name: 'index',
   beforeRouteEnter: (to, from, next) => {
-       store.dispatch('updateHotcoms', { cb: next })
+    store.dispatch('updateHotcoms', { cb: next })
+    store.dispatch('updateHotnews', { cb: next })
   },
   data() {
     return {
       size: "large"
     }
   },
-  computed:{
-     hotcoms(){     
-       return this.$store.getters.getHotcoms   
-     }
+  computed: {
+    hotcoms() {
+      return this.$store.getters.getHotcoms
+    },
+    hotnews() {
+      return this.$store.getters.getHotnews
+    }
   }
- // mounted() {
-    
-    // this.$ajax({
-    //   method: 'post',
-    //   url: 'http://121.42.29.188:9775/text',
-    //   // data:{
-    //   //   a:"a",
-    //   //   b:"b"
-    //   // }
-    // }).then(response => {
-    //   // success callback
-    //   console.log(response)
-    // }, response => {
-    //   // error callback
-    // })
- // },
+  // mounted() {
+
+  // this.$ajax({
+  //   method: 'post',
+  //   url: 'http://121.42.29.188:9775/text',
+  //   // data:{
+  //   //   a:"a",
+  //   //   b:"b"
+  //   // }
+  // }).then(response => {
+  //   // success callback
+  //   console.log(response)
+  // }, response => {
+  //   // error callback
+  // })
+  // },
 
 }
 </script>
@@ -110,5 +113,8 @@ export default {
 
 .box-card:nth-of-type(2) {
   float: right;
+}
+a{
+  text-decoration: none;
 }
 </style>

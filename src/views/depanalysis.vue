@@ -13,25 +13,30 @@
         </div>
         <div class="tip">温馨提示：按照箭头方向逐一分析，可以得到更加个性化的分析结果</div>
         <div class="left_wrap">
-            <div class="title">{{analyProName}}属性选择</div>
-            <el-select v-model="value" placeholder="请选择">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            <div class="title">{{analyProInfo.name}}属性选择</div>
+            <el-select v-for="(item,index) in analysisProperty" v-model="opt[index]" :key="item.id" placeholder="请选择">
+                <el-option v-for="initem in item.options" :key="initem.value" :label="initem.label" :value="initem.label">
                 </el-option>
             </el-select>
-             <el-select v-model="value" placeholder="请选择">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-             <el-select v-model="value" placeholder="请选择">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
+            <el-button @click="confirm" class="confirm">确认</el-button>
+            <!--<el-select v-model="value" placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                         <el-select v-model="value" placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>-->
         </div>
         <div class="right_wrap">
-           <div class="title">
-                 选择后的匹配结果展示
-           </div>
+            <div class="title">
+                选择后的匹配结果展示
+            </div>
+            <ul class="res_wrap">
+                <li v-for="item in depAnalyRes" class="res_item">{{item}}</li>
+            </ul>
         </div>
+    
     </div>
 </template>
 
@@ -41,42 +46,54 @@ import toptwo from './../components/toptwo.vue'
 export default {
     data() {
         return {
-            options: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
-            value: ''
+            opt: []
         }
     },
     components: { toptwo },
     name: 'depanalysis',
     computed: {
+        selectOpts() {
+            let _this = this;
+            return this.analysisProperty.map(function (item, index) {
+                return { id: item.id, value: _this.opt[index] }
+            })
+        },
         companyName() {
             return this.$store.getters.getCompanyInfo.name || JSON.parse(sessionStorage.getItem("companyInfo")).name
         },
         companyId() {
             return this.$store.getters.getCompanyInfo.id || JSON.parse(sessionStorage.getItem("companyInfo")).id
         },
-        analyProName() {
-            return this.$store.getters.getAnalysisProperty.name || JSON.parse(sessionStorage.getItem("analysisProperty")).name
+        analyProInfo() {
+            return JSON.parse(sessionStorage.getItem("analyProInfo"))
         },
-        analyProId() {
-            return this.$store.getters.getAnalysisProperty.id || JSON.parse(sessionStorage.getItem("analysisProperty")).id
+        // analyProId() {
+        //     return this.$store.getters.getAnalysisProperty.id || JSON.parse(sessionStorage.getItem("analysisProperty")).id
+        // },
+        analysisProperty() {
+            if (this.$store.getters.getAnalysisProperty.length === 0) {
+                return JSON.parse(sessionStorage.getItem("analysisProperty"))
+            } else {
+                return this.$store.getters.getAnalysisProperty
+            }
+        },
+        depAnalyRes() {
+            //  if (this.$store.getters.getDepAnalyRes.length === 0) {
+            //  return JSON.parse(sessionStorage.getItem("depAnalyRes"))
+            // } else {
+            return this.$store.getters.getDepAnalyRes
+            // }
+        }
+    },
+    methods: {
+        confirm() {
+            if (true) {
+
+            }
+            this.$store.dispatch('updateDepAnalyRes', { companyId: this.companyId, analysisPropertyId: this.analyProInfo.id, selectOpts: this.selectOpts })
         },
 
-    },
+    }
 }
 </script>
 
@@ -104,30 +121,46 @@ export default {
     margin-left: 80px;
     margin-top: 40px;
     font-size: 18px;
-    width:20%;
-    float:left
-    
+    width: 20%;
+    float: left
 }
-.left_wrap .title{
+
+.left_wrap .title {
     text-align: center;
 }
-.el-select{
+
+.el-select {
     display: block;
     margin-top: 20px;
-    
 }
-.right_wrap{
+
+.right_wrap {
     float: left;
-    width:70%;
+    width: 70%;
     border: 1px solid #ddd;
     min-height: 400px;
-     margin-top: 40px;
-     margin-left: 40px;
+    margin-top: 40px;
+    margin-left: 40px;
 }
-.right_wrap .title{
+
+.right_wrap .title {
     background-color: #eee;
-      font-size: 18px;
-      line-height:40px;
-      padding-left: 20px;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 20px;
+}
+
+.confirm {
+    float: right;
+    margin-top: 20px;
+    width: 100px;
+}
+
+.res_item {
+    cursor: pointer;
+    height:30px;
+}
+.res_wrap{
+    padding: 20px;
 }
 </style>
