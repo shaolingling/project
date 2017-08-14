@@ -3,7 +3,7 @@ import testData from "./assets/data/data.js";
 
 const axiosConfig = {
   method: "post", //default
-  baseURL: "http://121.42.29.188:9776",
+  baseURL: "http://121.42.29.188:9779",
   timeout: 30000,
   transformRequest: [
     function(data) {

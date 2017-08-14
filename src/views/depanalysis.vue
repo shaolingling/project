@@ -20,20 +20,20 @@
             </el-select>
             <el-button @click="confirm" class="confirm">确认</el-button>
             <!--<el-select v-model="value" placeholder="请选择">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
-                         <el-select v-model="value" placeholder="请选择">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>-->
+                                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                                    </el-option>
+                                </el-select>
+                                 <el-select v-model="value" placeholder="请选择">
+                                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                                    </el-option>
+                                </el-select>-->
         </div>
         <div class="right_wrap">
             <div class="title">
                 选择后的匹配结果展示
             </div>
             <ul class="res_wrap">
-                <li v-for="item in depAnalyRes" class="res_item">{{item}}</li>
+                <li v-for="item in depAnalyRes" class="res_item" @click="resShow(item.id)">{{item.content}}</li>
             </ul>
         </div>
     
@@ -87,10 +87,26 @@ export default {
     },
     methods: {
         confirm() {
-            if (true) {
-
-            }
             this.$store.dispatch('updateDepAnalyRes', { companyId: this.companyId, analysisPropertyId: this.analyProInfo.id, selectOpts: this.selectOpts })
+        },
+        resShow(id) {
+            this.$ajax({
+                method: 'post',
+                url: 'http://121.42.29.188:9779/matching',
+            }).then(response => {
+                // success callback
+                console.log(response.data)
+                let res = response.data
+                if(res.code=="200"){
+                    let data = res.data
+                    sessionStorage.setItem("resshow", JSON.stringify(data));
+                    this.$router.push({ name: "resshow" })
+                }
+             
+            }, response => {
+                // error callback
+            })
+
         },
 
     }
@@ -158,9 +174,10 @@ export default {
 
 .res_item {
     cursor: pointer;
-    height:30px;
+    height: 30px;
 }
-.res_wrap{
+
+.res_wrap {
     padding: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 import Vue from "vue";
-//import axios from "axios";
+import axios from "axios";
 //import { operEles } from "../assets/data/data.js";
 import reqData from "../reqData.js";
 const UPDATE_COMPANY = "UPDATE_COMPANY";
@@ -21,6 +21,27 @@ const state = {
   depAnalyRes: []
 };
 const actions = {
+  resshowSec({ commit, state }, p) {
+    var cb = p && p.cb;
+    axios({
+      method: "post",
+      url: "http://121.42.29.188:9779/recommend"
+    }).then(
+      response => {
+        // success callback
+        console.log(response.data);
+        let res = response.data;
+        if (res.code == "200") {
+          let data = res.data;
+          sessionStorage.setItem("resshowSec", JSON.stringify(data));
+          cb && cb();
+        }
+      },
+      response => {
+        // error callback
+      }
+    );
+  },
   updateCompany({ commit, state }, companyInfo) {
     commit(UPDATE_COMPANY, companyInfo);
   },
@@ -126,7 +147,7 @@ const actions = {
       });
   },
   updateDepAnalyRes({ commit, state }, options) {
-    debugger
+    debugger;
     reqData
       .req({
         apiName: "depanalyres",
@@ -142,6 +163,7 @@ const actions = {
         if (res && res.code === "200") {
           let data = res.data;
           commit(UPDATE_DEPANALYRES, data);
+
           //sessionStorage.setItem("depAnalyRes", JSON.stringify(data));
         }
       })
@@ -176,7 +198,7 @@ const mutations = {
   },
   [UPDATE_DEPANALYRES](state, depAnalyRes) {
     state.depAnalyRes = depAnalyRes;
-  },
+  }
 };
 const getters = {
   getCompanyInfo: state => {
@@ -202,9 +224,9 @@ const getters = {
   getBasicInfo: state => {
     return state.basicInfo;
   },
-  getDepAnalyRes:state=>{
-    return state.depAnalyRes
-  },
+  getDepAnalyRes: state => {
+    return state.depAnalyRes;
+  }
 };
 export default {
   state,

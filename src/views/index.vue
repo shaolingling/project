@@ -49,7 +49,7 @@ export default {
     hotnews() {
       return this.$store.getters.getHotnews
     }
-  }
+  },
   // mounted() {
 
   // this.$ajax({

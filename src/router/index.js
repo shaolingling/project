@@ -7,7 +7,7 @@ import marOperEle from "@/views/marOperEle";
 import result from "@/views/result";
 import depanalysis from  "@/views/depanalysis";
 import seresults from "@/views/seresults"; //返回结果列表页
-//import person from "@/views/person";
+import resshow from "@/views/resshow";
 Vue.use(Router);
 
 export default new Router({
@@ -29,23 +29,13 @@ export default new Router({
     },
     {
        path: "/depanalysis",
-      name: "depanalysis",
+       name: "depanalysis",
       component: depanalysis
     },
     {
-      path: "/company/marOperEles",
-      name: "marOperEles",
-      component: marOperEles
-    },
-    {
-      path: "/company/marOperEles/marOperEle",
-      name: "marOperEle",
-      component: marOperEle
-    },
-    {
-      path: "/company/marOperEles/marOperEle/result",
-      name: "result",
-      component: result
-    }
+       path: "/depanalysis/resshow",
+       name: "resshow",
+       component: resshow
+    }   
   ]
 });
