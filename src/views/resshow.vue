@@ -23,9 +23,6 @@ import store from './../store'
 export default {
     components: { toptwo },
     name: 'resshow',
-    beforeRouteEnter: (to, from, next) => {
-        store.dispatch('resshowSec', { cb: next })
-    },
     computed: {
         analyProInfo() {
             return JSON.parse(sessionStorage.getItem("analyProInfo"))

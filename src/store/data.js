@@ -1,6 +1,6 @@
 import Vue from "vue";
-import axios from "axios";
-//import { operEles } from "../assets/data/data.js";
+//import axios from "axios";
+ 
 import reqData from "../reqData.js";
 const UPDATE_COMPANY = "UPDATE_COMPANY";
 const UPDATE_RESULT = "UPDATE_RESULT";
@@ -21,27 +21,6 @@ const state = {
   depAnalyRes: []
 };
 const actions = {
-  resshowSec({ commit, state }, p) {
-    var cb = p && p.cb;
-    axios({
-      method: "post",
-      url: "http://121.42.29.188:9779/recommend"
-    }).then(
-      response => {
-        // success callback
-        console.log(response.data);
-        let res = response.data;
-        if (res.code == "200") {
-          let data = res.data;
-          sessionStorage.setItem("resshowSec", JSON.stringify(data));
-          cb && cb();
-        }
-      },
-      response => {
-        // error callback
-      }
-    );
-  },
   updateCompany({ commit, state }, companyInfo) {
     commit(UPDATE_COMPANY, companyInfo);
   },

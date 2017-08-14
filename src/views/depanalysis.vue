@@ -20,13 +20,13 @@
             </el-select>
             <el-button @click="confirm" class="confirm">确认</el-button>
             <!--<el-select v-model="value" placeholder="请选择">
-                                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                                    </el-option>
-                                </el-select>
-                                 <el-select v-model="value" placeholder="请选择">
-                                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                                    </el-option>
-                                </el-select>-->
+                                                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                             <el-select v-model="value" placeholder="请选择">
+                                                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                                                </el-option>
+                                            </el-select>-->
         </div>
         <div class="right_wrap">
             <div class="title">
@@ -42,7 +42,7 @@
 
 <script>
 import toptwo from './../components/toptwo.vue'
-
+import reqData from "../reqData.js";
 export default {
     data() {
         return {
@@ -90,23 +90,27 @@ export default {
             this.$store.dispatch('updateDepAnalyRes', { companyId: this.companyId, analysisPropertyId: this.analyProInfo.id, selectOpts: this.selectOpts })
         },
         resShow(id) {
-            this.$ajax({
-                method: 'post',
-                url: 'http://121.42.29.188:9779/matching',
-            }).then(response => {
-                // success callback
-                console.log(response.data)
-                let res = response.data
-                if(res.code=="200"){
-                    let data = res.data
-                    sessionStorage.setItem("resshow", JSON.stringify(data));
-                    this.$router.push({ name: "resshow" })
+            let ps = [
+                {
+                    apiName: "line"
+                }, {
+                    apiName: 'funnel',
                 }
-             
-            }, response => {
-                // error callback
+            ]
+            reqData.all(ps, (res1, res2) => {
+                let res1Data = res1.data
+                let res2Data = res2.data
+                let [code1,data1] = [res1Data.code, res1Data.data]
+                let [code2,data2] = [res2Data.code, res2Data.data]
+                if (code1 === '200' && code2 === '200') {
+                    sessionStorage.setItem("resshow", JSON.stringify(data1));
+                    sessionStorage.setItem("resshowSec", JSON.stringify(data2));   
+                    this.$router.push({ name: "resshow" })
+                }  
+                
+            }).catch(err => {
+               console.log(err);
             })
-
         },
 
     }

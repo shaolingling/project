@@ -46,16 +46,27 @@ const requestApi = {
       analysisPropertyId: "01"
     }
   },
-  depanalyres:{
-    url:"/depanalysis/result",
+  depanalyres: {
+    url: "/depanalysis/result",
     method: "post",
     data: {
       companyId: "001",
       analysisPropertyId: "01",
-      selectOpts:[{id:"01",value:"成都欢乐谷"},{id:"02",value:"公园"},{id:"03",value:"价格"}],     
+      selectOpts: [
+        { id: "01", value: "成都欢乐谷" },
+        { id: "02", value: "公园" },
+        { id: "03", value: "价格" }
+      ]
     }
-
   },
+  line: {
+    url: "/matching",
+    method: "post"
+  },
+  funnel: {
+    url: "/recommend",
+    method: "post"
+  }
 };
 export default {
   req: function(p) {
@@ -67,5 +78,12 @@ export default {
       delete req_obj.apiName;
       return $ajax(req_obj);
     }
+  },
+  all: function(ps, cb) {
+    const prs = [];
+    for (let i = 0; i < ps.length; i++) {
+      prs.push(this.req(ps[i]));
+    }
+    return axios.all(prs).then(axios.spread(cb));
   }
 };
