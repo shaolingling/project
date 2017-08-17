@@ -28,7 +28,12 @@ export default {
   padding-bottom: 30px;
   border-bottom: 1px solid #ddd;
   text-align: center;
-  position: relative;
+  position: fixed;
+  background-color: #fff;
+  top:0;
+  left:0;
+  right:0;
+  z-index: 999;
 }
 .logo {
   position: absolute;

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <top></top>
+     <div class="body_wrap"></div>
+    
+        <top></top>
+    
     <div class="search">
       <search :size="size"></search>
     </div>
@@ -22,6 +25,7 @@
         </div> 
       </el-card>
     </div>
+   
   </div>
 </template>
 
@@ -72,14 +76,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body{
-   background-image: url("./../assets/imgs/ser_bg.jpg")
+.body_wrap{
+   background: url("./../assets/imgs/ser_bg.jpg") no-repeat center;
+   background-size: cover;
+   position: fixed;
+   top:0;
+   left:0;
+   right:0;
+   bottom:0;
+   z-index: -999;
+  
 }
+ 
 .search {
   width: 50%;
   margin: 0 auto;
   margin-top: 100px;
- 
 }
 
 .hot {
