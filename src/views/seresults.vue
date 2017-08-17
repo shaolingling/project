@@ -3,8 +3,8 @@
         <toptwo></toptwo>
         <h4>检索结果</h4>
         <div>
-            <!--<el-table :data="companys"   style="width: 60% ; margin: 0 auto;" @row-click="alert" >
-                <el-table-column prop="name" label="公司名称" width="180">
+            <el-table :data="companys"   style="width: 80% ; margin: 50px auto 0 auto;" @row-click='basicInfo($event)' >
+                <el-table-column prop="companyName" label="公司名称" width="180">
                 </el-table-column>
                 <el-table-column prop="regCap" label="注册资本" width="180">
                 </el-table-column>
@@ -18,9 +18,8 @@
                 </el-table-column>
                 <el-table-column prop="assetTrans" label="资产交易">
                 </el-table-column>
-            </el-table>-->
-
-            <table>
+            </el-table> 
+               <!--<table>
                 <tr class="title"><th>公司名称</th><th>注册资本</th><th>法定代表人</th><th>成立时间</th><th>涉诉</th><th>经营</th><th>资产交易</th></tr>
                 <tr class="content" v-for="item in companys" @click="basicInfo(item.companyId,item.companyName)">
                     <td>{{item.companyName}}</td>
@@ -31,7 +30,7 @@
                     <td>{{item.operating}}</td>
                     <td>{{item.assetTrans}}</td>
                 </tr>
-            </table>
+            </table>-->
         </div>
     </div>
 </template>
@@ -51,10 +50,11 @@ export default {
         },
     },
     methods:{
-        basicInfo(id,name){
+ 
+        basicInfo(event){
             debugger
-             this.$store.dispatch('updateCompany',{id:id,name:name})
-             sessionStorage.setItem("companyInfo",JSON.stringify({id:id,name:name}))  
+             this.$store.dispatch('updateCompany',{id:event.companyId,name:event.companyName})
+             sessionStorage.setItem("companyInfo",JSON.stringify({id:event.companyId,name:event.companyName}))  
              this.$router.push({ name: 'basicinfo' })
         }
     }

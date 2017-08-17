@@ -31,26 +31,35 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header {
-    overflow: hidden;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #ddd;
+  overflow: hidden;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  position: fixed;
+  background-color: #20a0ff;;
+  top:0;
+  left:0;
+  right:0;
+  z-index: 999;
+  height:30px;
 }
-
 .logo {
-    float: left;
-}
-
-.logo {
-    margin-left: 80px;
+  position: absolute;
+  left: 80px;
+  top:16px;
 }
 
 .search {
-    float: right;
-    margin-right: 80px;
+    position: absolute;
+     top:16px;
+     right:200px;
+    
 }
 
 .goindex {
-    float: right;
-    margin-right: 80px;
+    position: absolute;
+      top:16px;
+    right: 80px;
+    cursor:pointer;
 }
 </style>

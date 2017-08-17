@@ -37,7 +37,7 @@ export default {
         optionFir() {
             return {
                 title: {
-                    text: '未来一周气温变化',
+                    text: '线型图',
                     subtext: '纯属虚构'
                 },
                 tooltip: {
@@ -194,6 +194,7 @@ export default {
 <style scoped>
 h3 {
     text-align: center;
+    margin-top:100px;
 }
 
 #echart_fir {

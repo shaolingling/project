@@ -76,10 +76,12 @@ export default {
             };
         },
         search() {
-            let _this = this
-            this.$store.dispatch('updateSeresults')
-            this.setHistoryItems(_this.companyName.trim())
-            _this.$router.push({ name: 'seresults' })
+            if(this.companyName.trim()){
+                let _this = this
+                this.$store.dispatch('updateSeresults')
+                this.setHistoryItems(_this.companyName.trim())
+                _this.$router.push({ name: 'seresults' })
+            }
         },
         setHistoryItems(keyword) {
             let { historyItems } = localStorage;

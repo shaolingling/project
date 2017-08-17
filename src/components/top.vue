@@ -34,21 +34,25 @@ export default {
   left:0;
   right:0;
   z-index: 999;
+  height:30px;
 }
 .logo {
   position: absolute;
   left: 80px;
+  top:16px;
 }
  
 .reg_load {
   position: absolute;
   right: 80px;
-  
+  top:16px;
+  color:blue;
 }
  
 .nav li {
   display: inline-block;
   margin-right: 40px;
+  margin-top:20px;
 }
 
 .load {

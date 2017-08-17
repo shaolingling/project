@@ -1,10 +1,10 @@
 <template>
     <div>
         <toptwo></toptwo>
-        <h2>{{companyName}}</h2>
+        <h3>{{companyName}}</h3>
         <div class="basic_info">
-            <span>基本信息</span>
-            <!--<ul>
+           <!-- <span>基本信息</span>
+            <ul>
                                 <li @click="getBasicInfo('01')">工商资料</li>
                                 <li @click="getBasicInfo('02')">新闻事件</li>
                                 <li @click="getBasicInfo('03')">涉诉事件</li>
@@ -14,25 +14,26 @@
                                 <li @click="getBasicInfo('07')">市场份额</li>
                                 <li @click="getBasicInfo('08')">合作企业</li>
                             </ul>-->
-            <el-button @click="getBasicInfo('01')">工商资料</el-button>
-            <el-button @click="getBasicInfo('02')">新闻事件</el-button>
-            <el-button @click="getBasicInfo('03')">涉诉事件</el-button>
-            <el-button @click="getBasicInfo('04')">经营活动</el-button>
-            <el-button @click="getBasicInfo('05')">拥有专利</el-button>
-            <el-button @click="getBasicInfo('06')">交易股票</el-button>
-            <el-button @click="getBasicInfo('07')">市场份额</el-button>
-            <el-button @click="getBasicInfo('08')">合作企业</el-button>
-    
+            <el-tabs type="border-card">
+                <el-tab-pane label="工商资料" @click="getBasicInfo('01')">工商资料</el-tab-pane>
+                <el-tab-pane label="新闻事件" @click="getBasicInfo('02')">新闻事件</el-tab-pane>
+                <el-tab-pane label="涉诉事件" @click="getBasicInfo('03')">涉诉事件</el-tab-pane>
+                <el-tab-pane label="经营活动" @click="getBasicInfo('04')">经营活动</el-tab-pane>
+                <el-tab-pane label="拥有专利" @click="getBasicInfo('05')">拥有专利</el-tab-pane>
+                <el-tab-pane label="交易股票" @click="getBasicInfo('06')">交易股票</el-tab-pane>
+                <el-tab-pane label="市场份额" @click="getBasicInfo('07')">市场份额</el-tab-pane>
+                <el-tab-pane label="合作企业" @click="getBasicInfo('08')">合作企业</el-tab-pane>
+           </el-tabs>
         </div>
         <div class="wrap">
-            <div class="result">
-                <div class="result_inner">
+            <!--<div class="result">
+                <el-card class="result_inner">
                     {{basicInfo}}
-                </div>
-            </div>
+                </el-card>
+            </div>-->
             <div class="depth_info">
                 <span>深度信息</span>
-                <!--<ul>
+                                        <!--<ul>
                                             <li @click="depanalysis('01','市场')">市场分析</li>
                                             <li @click="depanalysis('02','产品')">产品分析 </li>
                                             <li @click="depanalysis('03','专利')">专利分析</li>
@@ -44,7 +45,7 @@
                 <el-button @click="depanalysis('04','人才')">人才分析</el-button>
             </div>
     
-        </div>
+        </div> 
         <div id="tree"></div>
     </div>
 </template>
@@ -212,8 +213,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h2 {
+h3 {
     text-align: center;
+    margin-top:100px;
 }
 
 .basic_info {
@@ -237,10 +239,18 @@ h2 {
     padding: 10px 18px;
     cursor: pointer;
 }
+.el-tabs{
+    width:60%;
+    margin-left:10%;
+    float:left;
+}
+.el-tab-pane{
+    height:400px;
+}
 
 .depth_info {
-    width: 20%;
-    float: left;
+    margin-left: 50px;
+    width: 50%;
     text-align: center;
 }
 
@@ -282,5 +292,6 @@ h2 {
 #tree {
     width: 100%;
     height: 2000px;
+    margin-top:200px;
 }
 </style>

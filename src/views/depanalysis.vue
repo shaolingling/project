@@ -121,19 +121,20 @@ export default {
 <style scoped>
 .company_name {
     position: absolute;
-    left: 80px;
+    left: 100px;
     font-weight: bold;
+    top:140px;
 }
 
 .wrap {
     text-align: center;
     font-size: 18px;
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 .tip {
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 20px;
 }
 
