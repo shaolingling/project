@@ -72,10 +72,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+body{
+   background-image: url("./../assets/imgs/ser_bg.jpg")
+}
 .search {
   width: 50%;
   margin: 0 auto;
   margin-top: 100px;
+ 
 }
 
 .hot {
