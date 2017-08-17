@@ -66,6 +66,10 @@ const requestApi = {
   funnel: {
     url: "/recommend",
     method: "post"
+  },
+  company:{
+    url: "/company",
+    method: "post"
   }
 };
 export default {
