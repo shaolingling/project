@@ -70,7 +70,11 @@ const requestApi = {
   company:{
     url: "/company",
     method: "post"
-  }
+  },
+  companygxwl:{
+    url: "/companygxwl",
+    method: "post"
+  },
 };
 export default {
   req: function(p) {

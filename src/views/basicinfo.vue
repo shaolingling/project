@@ -3,18 +3,9 @@
         <toptwo></toptwo>
         <h3>{{companyName}}</h3>
         <div class="basic_info">
-           <!-- <span>基本信息</span>
-            <ul>
-                                <li @click="getBasicInfo('01')">工商资料</li>
-                                <li @click="getBasicInfo('02')">新闻事件</li>
-                                <li @click="getBasicInfo('03')">涉诉事件</li>
-                                <li @click="getBasicInfo('04')">经营活动</li>
-                                <li @click="getBasicInfo('05')">拥有专利</li>
-                                <li @click="getBasicInfo('06')">交易股票</li>
-                                <li @click="getBasicInfo('07')">市场份额</li>
-                                <li @click="getBasicInfo('08')">合作企业</li>
-                            </ul>-->
             <el-tabs type="border-card">
+                <el-tab-pane label="公司信息树状图"><div id="tree"></div></el-tab-pane>
+                <el-tab-pane label="公司信息网状图"><div id="net"></div></el-tab-pane>
                 <el-tab-pane label="工商资料" @click="getBasicInfo('01')">工商资料</el-tab-pane>
                 <el-tab-pane label="新闻事件" @click="getBasicInfo('02')">新闻事件</el-tab-pane>
                 <el-tab-pane label="涉诉事件" @click="getBasicInfo('03')">涉诉事件</el-tab-pane>
@@ -46,7 +37,8 @@
             </div>
     
         </div> 
-        <div id="tree"></div>
+        
+        
     </div>
 </template>
 
@@ -59,36 +51,78 @@ import reqData from "../reqData.js";
 export default {
     components: { toptwo },
     name: 'basicinfo',
-    beforeRouteEnter: (to, from, next) => {
-        reqData
-            .req({
-                apiName: "company",
-            })
-            .then(res => {
-                next((vm) => {
-                    res = res.data;
-                    console.log(res);
-                    if (res && res.code === "200") {
-                        let data = res.data;
-                        console.log(JSON.parse(data))
-                        debugger
-                        vm.treeData = JSON.parse(data)
-                        // 基于准备好的dom，初始化echarts实例
-                        var myChartFir = echarts.init(document.getElementById('tree'));
-                        // 绘制图表
-                        debugger
-                        myChartFir.setOption(vm.optionTree);
-                    }
-                })
+   // beforeRouteEnter: (to, from, next) => {
+        // reqData
+        //     .req({
+        //         apiName: "company",
+        //     })
+        //     .then(res => {
+        //         next((vm) => {
+        //             res = res.data;
+        //             console.log(res);
+        //             if (res && res.code === "200") {
+        //                 let data = res.data;
+        //                 console.log(JSON.parse(data))
+        //                 debugger
+        //                 vm.treeData = JSON.parse(data)
+        //                 // 基于准备好的dom，初始化echarts实例
+        //                 var myChartFir = echarts.init(document.getElementById('tree'));
+        //                 // 绘制图表
+        //                 debugger
+        //                 myChartFir.setOption(vm.optionTree);
+        //             }
+        //         })
 
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    },
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     });
+
+            // let ps = [
+            //     {
+            //         apiName: "company"
+            //     }, {
+            //         apiName: 'companygxwl',
+            //     }
+            // ]
+            // reqData.all(ps, (res1, res2) => {
+            //     let res1Data = res1.data
+            //     let res2Data = res2.data
+            //     let [code1,data1] = [res1Data.code, res1Data.data]
+            //     let [code2,data2] = [res2Data.code, res2Data.data]
+            //     if (code1 === '200' && code2 === '200') {
+            //          next((vm) => {
+            //              debugger
+            //               vm.treeData = JSON.parse(data1)
+            //             // 基于准备好的dom，初始化echarts实例
+            //              var myChartFir = echarts.init(document.getElementById('tree'));
+            //             // 绘制图表
+                   
+            //               myChartFir.setOption(vm.optionTree);
+            //               console.log(data2)
+            //                vm.links=JSON.parse(data2)["links"]
+            //                 vm.nodes=JSON.parse(data2)["nodes"]
+            //                    var myChartFir = echarts.init(document.getElementById('net'));
+            //             // 绘制图表
+                   
+            //               myChartFir.setOption(vm.optionNet);
+
+            //          })
+            //     }  
+                
+            // }).catch(err => {
+            //    console.log(err);
+            // })
+     
+  //  },
     data() {
         return {
-            treeData: []
+            treeData: [],
+            links: [],
+            nodes: [],
+            constMaxRadius : 10,
+            constMinRadius :2,
+ 
         }
     },
     computed: {
@@ -162,6 +196,69 @@ export default {
                 ]
             }
         },
+        optionNet(){
+           return {
+                    title : {
+                        text: 'Force',
+                        subtext: 'Force-directed tree',
+                        x:'right',
+                        y:'bottom'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: '{a} : {b}'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            restore : {show: true},
+                            magicType: {show: true, type: ['force', 'chord']},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    legend: {
+                        x: 'left',
+                        data:['叶子节点','非叶子节点', '根节点']
+                    },
+                    series : [
+                        {
+                            type:'force',
+                            name : "Force tree",
+                            ribbonType: false,
+                            categories : [
+                                {
+                                    name: '叶子节点'
+                                },
+                                {
+                                    name: '非叶子节点'
+                                },
+                                {
+                                    name: '根节点'
+                                }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: false
+                                    },
+                                    nodeStyle : {
+                                        brushType : 'both',
+                                        borderColor : 'rgba(255,215,0,0.6)',
+                                        borderWidth : 1
+                                    }
+                                }
+                            },
+                            minRadius : this.constMinRadius,
+                            maxRadius : this.constMaxRadius,
+                            coolDown: 0.995,
+                            steps: 10,
+                            nodes : this.nodes,
+                            links : this.links,
+                            steps: 1
+                        }
+                    ]
+            }
+        }
 
 
     },
@@ -174,40 +271,65 @@ export default {
             sessionStorage.setItem("analyProInfo", JSON.stringify({ name: name, id: id }))
         },
         getBasicInfo(id) {
+           
             this.$store.dispatch('updateBasicInfo', { companyId: this.companyId, basicPropertyId: id })
         },
-        // getTreeData() {
-        //     let _this = this
-        //     reqData
-        //         .req({
-        //             apiName: "company",
-        //         })
-        //         .then(res => {
-        //             res = res.data;
-        //             console.log(res);
-        //             if (res && res.code === "200") {
-        //                 let data = res.data;
-        //                 console.log(JSON.parse(data))
-        //                 debugger
-        //                 _this.treeData = JSON.parse(data)
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.log(err);
-        //         });
-        // },
+        getTree(){
+                    reqData
+            .req({
+                apiName: "company",
+            })
+            .then(res => {
+                    res = res.data;
+                    console.log(res);
+                    if (res && res.code === "200") {
+                        let data = res.data;
+                        console.log(JSON.parse(data))
+                        debugger
+                        this.treeData = JSON.parse(data)
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChartFir = echarts.init(document.getElementById('tree'));
+                        // 绘制图表
+                        debugger
+                        myChartFir.setOption(this.optionTree);
+                    }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        },
+        getNet(){
+            debugger
+             reqData.req({
+                apiName: "companygxwl",
+            })
+            .then(res => {             
+                    res = res.data;
+                    console.log(res);
+                    debugger
+                    if (res && res.code === "200") {
+                        let data = res.data;
+                        console.log(JSON.parse(data))
+                         this.links=JSON.parse(data)["links"]
+                         this.nodes=JSON.parse(data)["nodes"]
+                          var myChartFir = echarts.init(document.getElementById('net'));
+                         // 绘制图表
+                          myChartFir.setOption(this.optionNet);
+                    }
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+         
     },
-    // created() {
-    //     debugger
-    //     this.getTreeData()
-    // },
-    // mounted() {
-    //     // 基于准备好的dom，初始化echarts实例
-    //     var myChartFir = echarts.init(document.getElementById('tree'));
-    //     // 绘制图表
-    //     debugger
-    //     myChartFir.setOption(this.optionTree);
-    // }
+    mounted(){
+         this.getTree()
+         this.getNet()
+    }
+    
 }
 </script>
 
@@ -242,20 +364,22 @@ h3 {
 .el-tabs{
     width:60%;
     margin-left:10%;
-    float:left;
+    float:left;  
+    
 }
 .el-tab-pane{
-    height:400px;
+    overflow:auto;
+    width:100%;
+  
+     min-height:400px;
 }
+ 
 
 .depth_info {
     margin-left: 50px;
     width: 50%;
     text-align: center;
 }
-
-
-
 
 /*.depth_info li {
     margin-top: 30px;
@@ -290,8 +414,15 @@ h3 {
 }
 
 #tree {
-    width: 100%;
+    width: 1200px;
     height: 2000px;
-    margin-top:200px;
+   
+   
+}
+#net{
+    width: 400px;
+    height: 400px;
+    margin:0 auto;
+   
 }
 </style>
