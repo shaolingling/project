@@ -37,8 +37,8 @@ export default {
         optionFir() {
             return {
                 title: {
-                    text: '线型图',
-                    subtext: '纯属虚构'
+                    text: '推荐',
+                    subtext: ''
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -98,8 +98,8 @@ export default {
             debugger
             return {
                 title: {
-                    text: '漏斗图',
-                    subtext: '纯属虚构'
+                    text: '匹配',
+                    subtext: ''
                 },
                 tooltip: {
                     trigger: 'item',
