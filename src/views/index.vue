@@ -1,9 +1,7 @@
 <template>
   <div>
-     <div class="body_wrap"></div>
-    
+     <div class="body_wrap"   :style="{backgroundImage: 'url(' +bg + ')'}"></div>
         <top></top>
-    
     <div class="search">
       <search :size="size"></search>
     </div>
@@ -43,7 +41,8 @@ export default {
   },
   data() {
     return {
-      size: "large"
+      size: "large",
+      bg:require('./../assets/imgs/ser_bg.jpg')
     }
   },
   computed: {
@@ -77,7 +76,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .body_wrap{
-   background: url("./../assets/imgs/ser_bg.jpg") no-repeat center;
+   background:  no-repeat center;
    background-size: cover;
    position: fixed;
    top:0;
