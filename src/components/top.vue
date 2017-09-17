@@ -8,8 +8,8 @@
         <li>关于我们</li>
       </ul>
       <div class="reg_load">  
-        <span class="load">登陆</span>
-        <span class="register">注册</span> 
+        <span class="load"> <img :src="loadbg">登陆</span>
+        <span class="register"> <img :src="regbg">注册</span> 
       </div>
     </div>
   </div>
@@ -18,6 +18,12 @@
 <script>
 export default {
   name: 'top',
+  data() {
+    return {     
+      loadbg:require('./../assets/imgs/loadbg.png'),
+      regbg:require('./../assets/imgs/regbg.png')
+    }
+  }
 }
 </script>
 
@@ -46,9 +52,13 @@ export default {
   position: absolute;
   right: 80px;
   top:16px;
-  color:blue;
-}
  
+}
+.reg_load img{
+  width:20px;
+  vertical-align:bottom;
+  margin-right:6px;
+ }
 .nav li {
   display: inline-block;
   margin-right: 40px;

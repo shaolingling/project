@@ -1,10 +1,14 @@
 <template>
-    <div>
+    <div class="bg">
         <toptwo></toptwo>
         <h3>{{analyProInfo.name}}用户需求</h3>
         <div class="echart">
-            <div id="echart_fir"></div>
-            <div id="echart_sec"></div>
+        <el-card>
+             <div id="echart_fir"></div>
+        </el-card>
+        <el-card>
+              <div id="echart_sec"></div>
+        </el-card>      
         </div>
     </div>
 </template>
@@ -192,18 +196,32 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.bg{
+   background-color:#ededed;
+   position:fixed;
+   top:0;
+   bottom:0;
+   left:0;
+   right:0;
+   overflow:auto;
+}
 h3 {
     text-align: center;
     margin-top:100px;
 }
-
+.el-card{
+    width: 40%;
+    float:left;
+    margin:40px 60px;
+    overflow:auto;
+}
 #echart_fir {
-    width: 100%;
-    height: 400px;
+    width:100%;
+    height: 400px; 
 }
 
 #echart_sec {
-    width: 600px;
+    width:100%;
     height: 600px;
     margin: 0 auto;
     margin-top: 20px;

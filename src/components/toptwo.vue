@@ -58,8 +58,9 @@ export default {
 
 .goindex {
     position: absolute;
-      top:16px;
+    top:16px;
     right: 80px;
     cursor:pointer;
+    color:#fff;
 }
 </style>

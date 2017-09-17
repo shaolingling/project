@@ -1,44 +1,62 @@
 <template>
-    <div>
+    <div class="bg">
         <toptwo></toptwo>
-        <h3>{{companyName}}</h3>
-        <div class="basic_info">
-            <el-tabs type="border-card">
-                <el-tab-pane label="公司信息树状图"><div id="tree"></div></el-tab-pane>
+        <div class="con_bg">
+            <div class="ser_res">{{companyName}}</div>
+            <div class="triangle"></div>
+            <div class="basic_info">
+              <el-tabs type="border-card">
+                 <!--<el-tab-pane label="公司信息树状图"><div id="tree"></div></el-tab-pane>-->
                 <el-tab-pane label="公司信息网状图"><div id="net"></div></el-tab-pane>
-                <el-tab-pane label="工商资料" @click="getBasicInfo('01')">工商资料</el-tab-pane>
-                <el-tab-pane label="新闻事件" @click="getBasicInfo('02')">新闻事件</el-tab-pane>
-                <el-tab-pane label="涉诉事件" @click="getBasicInfo('03')">涉诉事件</el-tab-pane>
+                <el-tab-pane label="工商资料" @click="getBasicInfo('01')">
+                    <ul>
+                        <li>法定代表人：罗永浩</li>
+                        <li>注册资本：2567.272万元人民币</li>
+                        <li>登记状态：存续（在营、开业、在册）</li>
+                        <li>成立日期：2012年05月28日</li>
+                    </ul>       
+                </el-tab-pane>
+                <el-tab-pane label="新闻事件" @click="getBasicInfo('02')">
+                <ul>
+                    <li>2017/08/25  罗永浩：因精力问题，停止更新得到专栏</li>
+                    <li>2017/08/23  今日头条回应被百度收购传闻；乐视移动转让易到股份来抵消 3.24 亿元债务| 极客早知道</li>
+                    <li>2017/08/07  罗永浩透露锤子将融资10亿元，去年最困难的时候差点被收购 </li>
+                </ul>
+                </el-tab-pane>
+                <el-tab-pane label="涉诉事件" @click="getBasicInfo('03')">
+                  <ul>
+                        <li>侵害作品信息网络传播权48次</li>
+                        <li>侵害录音录像制作者权纠纷48次</li>
+                        <li>网络购物合同纠纷2次</li>
+                  </ul>
+                
+             </el-tab-pane>
                 <el-tab-pane label="经营活动" @click="getBasicInfo('04')">经营活动</el-tab-pane>
                 <el-tab-pane label="拥有专利" @click="getBasicInfo('05')">拥有专利</el-tab-pane>
                 <el-tab-pane label="交易股票" @click="getBasicInfo('06')">交易股票</el-tab-pane>
                 <el-tab-pane label="市场份额" @click="getBasicInfo('07')">市场份额</el-tab-pane>
                 <el-tab-pane label="合作企业" @click="getBasicInfo('08')">合作企业</el-tab-pane>
-           </el-tabs>
-        </div>
-        <div class="wrap">
-            <!--<div class="result">
-                <el-card class="result_inner">
-                    {{basicInfo}}
-                </el-card>
-            </div>-->
-            <div class="depth_info">
-                <span>深度信息</span>
+             </el-tabs>
+            </div>
+            <div class="ser_res dep">深度信息</div>
+            <div class="triangle dep"></div>
+            <div class="wrap"> 
+               <div class="depth_info">
+                  
                                         <!--<ul>
                                             <li @click="depanalysis('01','市场')">市场分析</li>
                                             <li @click="depanalysis('02','产品')">产品分析 </li>
                                             <li @click="depanalysis('03','专利')">专利分析</li>
                                             <li @click="depanalysis('04','人才')">人才分析</li>
                                         </ul>-->
-                <el-button @click="depanalysis('01','市场')">市场分析</el-button>
-                <el-button @click="depanalysis('02','产品')">产品分析</el-button>
-                <el-button @click="depanalysis('03','专利')">专利分析</el-button>
-                <el-button @click="depanalysis('04','人才')">人才分析</el-button>
-            </div>
-    
-        </div> 
-        
-        
+                <el-button   @click="depanalysis('01','市场')">市场分析</el-button>
+                <el-button   @click="depanalysis('02','产品')">产品分析</el-button>
+                <el-button   @click="depanalysis('03','专利')">专利分析</el-button>
+                <el-button  @click="depanalysis('04','人才')">人才分析</el-button>
+               </div>
+               <img class="pc" :src="pc">
+           </div> 
+       </div>   
     </div>
 </template>
 
@@ -122,6 +140,7 @@ export default {
             nodes: [],
             constMaxRadius : 10,
             constMinRadius :2,
+            pc:require('./../assets/imgs/pc.png')
  
         }
     },
@@ -223,7 +242,7 @@ export default {
                     series : [
                         {
                             type:'force',
-                            name : "Force tree",
+                            //name : "Force tree",
                             ribbonType: false,
                             categories : [
                                 {
@@ -335,16 +354,35 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.bg{
+   background-color:#ededed;
+   position:fixed;
+   top:0;
+   bottom:0;
+   left:0;
+   right:0;
+   overflow:auto;
+}
+.con_bg{
+    background-color:#fff;
+    width:80%;
+    position:absolute;
+    left:10%;
+ 
+    top:60px;
+    padding-top:80px;
+    
+}
 h3 {
     text-align: center;
     margin-top:100px;
 }
 
 .basic_info {
-    text-align: center;
+   /* text-align: center;*/
 }
 
-.basic_info ul,
+/* .basic_info ul,*/
 .basic_info span {
     display: inline-block;
     font-size: 18px;
@@ -355,38 +393,44 @@ h3 {
 }
 
 .basic_info li {
-    display: inline-block;
+  /*   display: inline-block;
     margin-left: 20px;
     border: 1px solid #ddd;
     padding: 10px 18px;
-    cursor: pointer;
+    cursor: pointer;*/
+    padding: 10px 18px;
 }
 .el-tabs{
-    width:60%;
+    width:80%;
     margin-left:10%;
-    float:left;  
+   
     
 }
 .el-tab-pane{
     overflow:auto;
     width:100%;
-  
-     min-height:400px;
+    min-height:400px;
 }
  
 
 .depth_info {
-    margin-left: 50px;
-    width: 50%;
+  
+    width: 40%;
     text-align: center;
+    float:left;
+}
+.pc{
+    width:40%;
+    margin-left:10%;
+    margin-top:20px;
 }
 
-/*.depth_info li {
+ .depth_info li {
     margin-top: 30px;
     border: 1px solid #ddd;
     padding: 10px 18px;
-    cursor: pointer;
-}*/
+    cursor: pointer;   
+} 
 
 .depth_info .el-button {
 
@@ -408,7 +452,7 @@ h3 {
 }
 
 .wrap {
-    margin: 50px 100px;
+    margin: 80px 100px;
     font-size: 18px;
     overflow: hidden;
 }
@@ -424,5 +468,35 @@ h3 {
     height: 400px;
     margin:0 auto;
    
+}
+.ser_res{
+    width:300px;
+    height:40px;
+    background-color:#20a0ff;
+    color:#fff;
+    text-align:center;
+    line-height:40px;
+    position:absolute;
+    top:20px;
+    left:-20px;
+}
+.triangle{
+    position:absolute;
+    width:0;
+    height:0;
+    border-style:solid;
+    border-width:20px;
+    border-color:transparent;
+    border-top:20px solid #20a0ff;
+    left:-20px;
+    top:61px;
+    z-index:-1;
+}
+ 
+.ser_res.dep{
+  top:600px;
+}
+.triangle.dep{
+  top:641px;
 }
 </style>

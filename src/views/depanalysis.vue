@@ -1,8 +1,10 @@
 <template>
-    <div>
-        <toptwo></toptwo>
+    <div class="bg">
+      <toptwo></toptwo>
+      <div class="con_bg">
+        <div class="ser_res">{{companyName}}</div>
+        <div class="triangle"></div>
         <div class="wrap">
-            <div class="company_name">{{companyName}}</div>
             <span class="property">市场分析</span>
             <span class="arrow">--></span>
             <span class="property">产品分析</span>
@@ -32,11 +34,20 @@
             <div class="title">
                 选择后的匹配结果展示
             </div>
-            <ul class="res_wrap">
-                <li v-for="item in depAnalyRes" class="res_item" @click="resShow(item.id)">{{item.content}}</li>
-            </ul>
+           <!-- <ul class="res_wrap">
+                <li><span>名称</span><span>匹配度</span><span>真实性</span></li>
+                <li v-for="item in depAnalyRes" class="res_item" @click="resShow(item.id)">
+                        <span>{{item.content}}</span>
+                        <span>{{item.matching}}</span>
+                        <span>{{item.validity}}</span>
+                </li>
+            </ul>-->
+            <table class="res_wrap">
+               <tr><th>名称</th><th>匹配度</th><th>真实性</th></tr>
+               <tr v-for="item in depAnalyRes" class="res_item" @click="resShow(item.id)" ><td>{{item.content}}</td><td>{{item.matching}}</td><td>{{item.validity}}</td></tr>
+            </table>
         </div>
-    
+      </div>
     </div>
 </template>
 
@@ -119,6 +130,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.bg{
+   background-color:#ededed;
+   position:fixed;
+   top:0;
+   bottom:0;
+   left:0;
+   right:0;
+    overflow:auto;
+}
+.con_bg{
+    background-color:#fff;
+    width:80%;
+    position:absolute;
+    left:10%;
+    top:60px;
+    bottom:0;
+    padding-top:80px;
+   
+}
 .company_name {
     position: absolute;
     left: 100px;
@@ -129,20 +159,21 @@ export default {
 .wrap {
     text-align: center;
     font-size: 18px;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 
 .tip {
     text-align: center;
     font-size: 16px;
     margin-top: 20px;
+    font-style:italic;
 }
 
 .left_wrap {
     margin-left: 80px;
     margin-top: 40px;
     font-size: 18px;
-    width: 20%;
+   
     float: left
 }
 
@@ -179,10 +210,40 @@ export default {
 
 .res_item {
     cursor: pointer;
-    height: 30px;
+    height: 40px;
+}
+.res_item:hover{
+     background-color:#eee;
+}
+.res_item td,tr th {
+   width:100px;
+   text-align:center;
 }
 
 .res_wrap {
     padding: 20px;
+}
+.ser_res{
+    width:300px;
+    height:40px;
+    background-color:#20a0ff;
+    color:#fff;
+    text-align:center;
+    line-height:40px;
+    position:absolute;
+    top:20px;
+    left:-20px;
+}
+.triangle{
+    position:absolute;
+    width:0;
+    height:0;
+    border-style:solid;
+    border-width:20px;
+    border-color:transparent;
+    border-top:20px solid #20a0ff;
+    left:-20px;
+    top:61px;
+    z-index:-1;
 }
 </style>
