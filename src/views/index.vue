@@ -7,24 +7,28 @@
       </el-carousel-item>
     </el-carousel>
     <div class="hot">
-      <el-card class="box-card" :body-style="{ height: '300px',overflow:'auto' }">
-        <div slot="header" class="clearfix">
-          <span style="line-height: 20px;">热点公司</span>
-        </div>
-        <div v-for="item in hotcoms" class="text item">
-          {{item.companyName}}
-        </div>
-      </el-card>
-      <img class="hot_c" :src="hot_c" >
-       <img class="bot_n" :src="bot_n" >
-      <el-card class="box-card" :body-style="{ height: '300px',overflow:'auto' }">
-        <div slot="header" class="clearfix">
-          <span style="line-height: 20px;">热点新闻</span>
-        </div>
-        <div v-for="item in hotnews" class="text item">
-          <a :href="item.newsHref"> {{item.newsTitle}}</a>
-        </div>
-      </el-card>
+      <div class="hot_item">
+          <el-card class="box-card" :body-style="{ height: '300px',overflow:'auto' }">
+            <div slot="header" class="clearfix">
+              <span style="line-height: 20px;">热点公司</span>
+            </div>
+            <div v-for="item in hotcoms" class="text item">
+              {{item.companyName}}
+            </div>
+          </el-card>
+          <img class="hot_c" :src="hot_c" >
+      </div>
+      <div class="hot_item">
+          <img class="hot_n" :src="hot_n" >
+          <el-card class="box-card" :body-style="{ height: '300px',overflow:'auto' }">
+            <div slot="header" class="clearfix">
+              <span style="line-height: 20px;">热点新闻</span>
+            </div>
+            <div v-for="item in hotnews" class="text item">
+              <a :href="item.newsHref"> {{item.newsTitle}}</a>
+            </div>
+          </el-card>
+      </div>
     </div>
     <div class="ser_wrap" :style="{backgroundImage: 'url(' +bg + ')'}">
       <div class="search">
@@ -51,8 +55,8 @@ export default {
     return {
       size: "large",
       bg: require('./../assets/imgs/ser_bg.jpg'),
-      bot_n:require('./../assets/imgs/hot_1.png'),
-      bot_c:require('./../assets/imgs/hot_2.png'),
+      hot_n:require('./../assets/imgs/hot_1.png'),
+      hot_c:require('./../assets/imgs/hot_2.png'),
     }
   },
   computed: {
@@ -92,8 +96,8 @@ body{
   background: no-repeat center;
   background-size: cover;
   width: 100%;
-  height: 200px;
-  padding-top: 140px;
+  height: 160px;
+  padding-top: 100px;
   opacity: 0.7;
   filter: alpha(opacity=70)
 }
@@ -129,17 +133,31 @@ body{
 }
 
 .box-card {
-  width: 480px;
+  width: 40%;
 }
 
-.box-card:nth-of-type(1) {
- 
+.hot_item:nth-of-type(1) .box-card {
+  float:left;
 }
 
-.box-card:nth-of-type(2) {
-   
+.hot_item:nth-of-type(2) .box-card{
+   float:right;
 }
-
+.hot_item:nth-of-type(2) {
+  margin-top:80px;
+}
+.hot_item{
+  width:100%;
+  overflow:hidden;
+}
+.hot_c{
+  float:right;
+  width: 40%;
+}
+.hot_n{
+  float:left;
+  width: 40%;
+}
 a {
   text-decoration: none;
 }
