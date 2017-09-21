@@ -19,7 +19,7 @@ export default {
   color: #2c3e50;
   margin-top: 40px;
 }
-ul,li{
+ul,li,body{
     list-style: none;
     margin:0;
     padding:0;

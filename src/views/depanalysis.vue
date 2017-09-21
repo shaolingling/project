@@ -144,10 +144,8 @@ export default {
     width:80%;
     position:absolute;
     left:10%;
-    top:60px;
-    bottom:0;
-    padding-top:80px;
-   
+    min-height: 100%;
+    
 }
 .company_name {
     position: absolute;
@@ -159,7 +157,7 @@ export default {
 .wrap {
     text-align: center;
     font-size: 18px;
-    margin-top: 20px;
+    margin-top: 180px;
 }
 
 .tip {
@@ -188,11 +186,12 @@ export default {
 
 .right_wrap {
     float: left;
-    width: 70%;
+    width: 60%;
     border: 1px solid #ddd;
     min-height: 400px;
     margin-top: 40px;
     margin-left: 40px;
+    margin-bottom: 20px;
 }
 
 .right_wrap .title {
@@ -231,7 +230,7 @@ export default {
     text-align:center;
     line-height:40px;
     position:absolute;
-    top:20px;
+    top:100px;
     left:-20px;
 }
 .triangle{
@@ -243,7 +242,7 @@ export default {
     border-color:transparent;
     border-top:20px solid #20a0ff;
     left:-20px;
-    top:61px;
+    top:141px;
     z-index:-1;
 }
 </style>

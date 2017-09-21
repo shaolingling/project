@@ -1,11 +1,10 @@
 <template>
     <div class="bg" >
         <toptwo></toptwo>
-        <h4>检索结果</h4>
         <div class="con_bg">
             <div class="ser_res">搜索结果</div>
             <div class="triangle"></div>
-            <el-table :data="companys"   style="width: 80% ; margin: 50px auto 0 auto;" @row-click='basicInfo($event)' >
+            <el-table :data="companys"   style="width: 80% ; margin: 200px auto 0 auto;" @row-click='basicInfo($event)' >
                 <el-table-column prop="companyName" label="公司名称" width="180">
                 </el-table-column>
                 <el-table-column prop="regCap" label="注册资本" width="180">
@@ -108,10 +107,8 @@ export default {
     background-color:#fff;
     width:80%;
     position:absolute;
-    left:10%;
-    
-    top:60px;
-    padding-top:80px;
+    left:10%;  
+    min-height: 100%;
 }
 h4.event{
     font-weight:normal;
@@ -140,14 +137,14 @@ td{
 }
  
 .ser_res{
-    width:100px;
+    width:200px;
     height:40px;
     background-color:#20a0ff;
     color:#fff;
     text-align:center;
     line-height:40px;
     position:absolute;
-    top:20px;
+    top:100px;
     left:-20px;
 }
 .triangle{
@@ -159,7 +156,7 @@ td{
     border-color:transparent;
     border-top:20px solid #20a0ff;
     left:-20px;
-    top:61px;
+    top:141px;
     z-index:-1;
 }
 .related{

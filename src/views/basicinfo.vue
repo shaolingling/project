@@ -368,10 +368,7 @@ export default {
     width:80%;
     position:absolute;
     left:10%;
- 
-    top:60px;
-    padding-top:80px;
-    
+    min-height: 100%;   
 }
 h3 {
     text-align: center;
@@ -379,7 +376,7 @@ h3 {
 }
 
 .basic_info {
-   /* text-align: center;*/
+   margin-top:180px;
 }
 
 /* .basic_info ul,*/
@@ -452,7 +449,7 @@ h3 {
 }
 
 .wrap {
-    margin: 80px 100px;
+    margin: 120px 100px;
     font-size: 18px;
     overflow: hidden;
 }
@@ -477,7 +474,7 @@ h3 {
     text-align:center;
     line-height:40px;
     position:absolute;
-    top:20px;
+    top:100px;
     left:-20px;
 }
 .triangle{
@@ -489,14 +486,14 @@ h3 {
     border-color:transparent;
     border-top:20px solid #20a0ff;
     left:-20px;
-    top:61px;
+    top:141px;
     z-index:-1;
 }
  
 .ser_res.dep{
-  top:600px;
+  top:720px;
 }
 .triangle.dep{
-  top:641px;
+  top:761px;
 }
 </style>
