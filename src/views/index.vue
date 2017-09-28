@@ -2,8 +2,8 @@
   <div>
     <top></top>
     <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item v-for="item in slide_imgs">
+           <img :src="item.slide_img">
       </el-carousel-item>
     </el-carousel>
     <div class="hot">
@@ -57,6 +57,10 @@ export default {
       bg: require('./../assets/imgs/ser_bg.jpg'),
       hot_n:require('./../assets/imgs/hot_1.png'),
       hot_c:require('./../assets/imgs/hot_2.png'),
+      slide_imgs:[
+         {slide_img:require('./../assets/imgs/slide_1.jpg')},
+         {slide_img:require('./../assets/imgs/slide_2.jpg')},  
+      ]
     }
   },
   computed: {
@@ -65,7 +69,7 @@ export default {
     },
     hotnews() {
       return this.$store.getters.getHotnews
-    }
+    },
   },
   // mounted() {
 
@@ -166,19 +170,7 @@ a {
   margin-top: 60px;
 }
 
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 18px;
-  opacity: 0.75;
-  line-height: 300px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n+1) {
-  background-color: #d3dce6;
+.el-carousel__item img {
+  width:100%;
 }
 </style>

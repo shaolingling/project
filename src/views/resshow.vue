@@ -8,19 +8,25 @@
         </el-card>
         <el-card>
               <div id="echart_sec"></div>
+        </el-card> 
+         <el-card>
+              <div id="echart_third"></div>
         </el-card>      
         </div>
     </div>
 </template>
 <script>
+import reqData from "../reqData.js";
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts');
+require('echarts/lib/chart/scatter');
 // 引入柱状图
 require('echarts/lib/chart/line');
 // 引入提示框和标题组件
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/chart/funnel');
+
 
 import toptwo from '../components/toptwo.vue'
 import store from './../store'
@@ -37,6 +43,10 @@ export default {
         dataSec() {
             debugger
             return JSON.parse(sessionStorage.getItem("resshowSec"))
+        },
+        dataThird(){
+            debugger
+             return JSON.parse(sessionStorage.getItem("resshowThird"))
         },
         optionFir() {
             return {
@@ -179,8 +189,73 @@ export default {
                     }
                 ]
             }
+        },
+        optionThird(){
+            return {
+                    backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+        offset: 0,
+        color: '#f7f8fa'
+    }, {
+        offset: 1,
+        color: '#cdd0d5'
+    }]),
+    title: {
+        text: ''
+    },
+    xAxis: {
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
         }
     },
+    yAxis: {
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        },
+        scale: true
+    },
+    series: [{
+        name: '',
+          data: [[1, 80, 8000000, "经济管理"],[2, 76, 780, "金融学"],[3, 70, 700, "通信与信息处理"],
+                   [4, 60, 500, "市场营销"],[5, 40, 860, "信息管理和信息系统"],[6, 40, 660, "计算机科学与技术"],
+                    [7, 60, 960, "计算机应用"]],
+       // data:this.dataThird[0],
+        // data: [[28604,77,17096869,'Australia'],[31163,77.4,27662440,'Canada'],[1516,68,1154605773,'China'],[13670,74.7,10582082,'Cuba'],[28599,75,4986705,'Finland'],[29476,77.1,56943299,'France'],[31476,75.4,78958237,'Germany'],[28666,78.1,254830,'Iceland'],[1777,57.7,870601776,'India'],[29550,79.1,122249285,'Japan'],[2076,67.9,20194354,'North Korea'],[12087,72,42972254,'South Korea'],[24021,75.4,3397534,'New Zealand'],[43296,76.8,4240375,'Norway'],[10088,70.8,38195258,'Poland'],[19349,69.6,147568552,'Russia'],[10670,67.3,53994605,'Turkey'],[26424,75.7,57110117,'United Kingdom'],[37062,75.4,252847810,'United States']],
+        type: 'scatter',
+        symbolSize: function (data) {
+            return Math.sqrt(data[2]) / 5e2;
+        },
+        label: {
+            emphasis: {
+                show: true,
+                formatter: function (param) {
+                    return param.data[3];
+                },
+                position: 'top'
+            }
+        },
+        itemStyle: {
+            normal: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(120, 36, 50, 0.5)',
+                shadowOffsetY: 5,
+                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                    offset: 0,
+                    color: 'rgb(251, 118, 123)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(204, 46, 72)'
+                }])
+            }
+        }
+    } ]
+            }
+        }
+    },
+   
     mounted() {
         // 基于准备好的dom，初始化echarts实例
         var myChartFir = echarts.init(document.getElementById('echart_fir'));
@@ -188,8 +263,13 @@ export default {
         myChartFir.setOption(this.optionFir);
         var myChartSec = echarts.init(document.getElementById('echart_sec'));
         // 绘制图表
-        debugger
+       
         myChartSec.setOption(this.optionSec);
+        var myChartThird = echarts.init(document.getElementById('echart_third'));
+        // 绘制图表
+      debugger
+        myChartThird.setOption(this.optionThird);
+        console.log(this.dataThird)
     }
 }
 </script>
@@ -225,6 +305,10 @@ h3 {
     height: 600px;
     margin: 0 auto;
     margin-top: 20px;
+}
+#echart_third{
+     width:100%;
+    height: 600px;
 }
  
 </style>

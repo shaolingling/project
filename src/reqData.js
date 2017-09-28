@@ -75,6 +75,10 @@ const requestApi = {
     url: "/companygxwl",
     method: "post"
   },
+  scatter:{
+    url: "/scatter",
+    method: "post"
+  }
 };
 export default {
   req: function(p) {

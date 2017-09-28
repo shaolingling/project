@@ -106,16 +106,23 @@ export default {
                     apiName: "line"
                 }, {
                     apiName: 'funnel',
+                },{
+                    apiName: 'scatter',
                 }
             ]
-            reqData.all(ps, (res1, res2) => {
+            reqData.all(ps, (res1, res2,res3) => {
                 let res1Data = res1.data
                 let res2Data = res2.data
+                let res3Data = res3.data
                 let [code1,data1] = [res1Data.code, res1Data.data]
                 let [code2,data2] = [res2Data.code, res2Data.data]
-                if (code1 === '200' && code2 === '200') {
+                   let [code3,data3] = [res3Data.code, res3Data.data]
+                if (code1 === '200' && code2 === '200'&& code3 === '200') {
+                   
                     sessionStorage.setItem("resshow", JSON.stringify(data1));
-                    sessionStorage.setItem("resshowSec", JSON.stringify(data2));   
+                    sessionStorage.setItem("resshowSec", JSON.stringify(data2)); 
+                    sessionStorage.setItem("resshowThird", JSON.stringify(data3));   
+                      
                     this.$router.push({ name: "resshow" })
                 }  
                 
