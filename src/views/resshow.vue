@@ -2,9 +2,9 @@
     <div class="bg">
         <toptwo></toptwo>
         <h3>{{analyProInfo.name}}用户需求</h3>
-        <div class="echart">
-            <div class="lineone">
-                <el-card class="cardone">
+        <div class="echart"> 
+           <div class="col-one">
+              <el-card class="cardone">
                     <div id="echart_fir"></div>
                 </el-card>
                 <el-card class="cardthree">
@@ -12,25 +12,19 @@
                 </el-card>
                 <el-card class="cardfive">
                     <div id="echart_fifth"></div>
-                </el-card> 
-            </div>
-            <div class="linetwo">
-                <div class="two_left">
-                    <el-card class="cardtwo">
+                </el-card>  
+           </div>
+           <div class="col-two">
+                  <el-card class="cardtwo">
                         <div id="echart_sec"></div>
-                    </el-card>
-                </div>
-                <div class="two_right">
+                    </el-card>       
                     <el-card class="cardfour">
                         <div id="echart_fouth"></div>
                     </el-card>
                     <el-card class="cardsix">
                         <div id="echart_sixth"></div>
-                    </el-card>
-                </div>
-                
-            </div>
-                      
+                    </el-card> 
+            </div>                     
         </div>
     </div>
 </template>
@@ -454,6 +448,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .bg{
+   padding-left:80px;
+   padding-right:80px;
    background-color:#ededed;
    position:fixed;
    top:0;
@@ -466,26 +462,22 @@ h3 {
     text-align: center;
     margin-top:100px;
 }
-.lineone{
-    width: 100%;
-    display: flex;
+.col-one,.col-two{
+   width:48%;
 }
-.linetwo{
-    display: flex;
+.col-one{
+    float:left;
 }
-.two_left{
-   width:32.4%;
-   margin-right:12px;
-}
-.two_right{
-    width:66%;
+.col-two{
+    float:right;
 }
 .el-card{
-     width:100%;
-    margin:10px 5px;
+    width:100%;
+    margin-top:50px;
     overflow:auto;
+    float:left;
 }
-
+ 
 #echart_fir {
      width:100%; 
     height: 400px; 
