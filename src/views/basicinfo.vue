@@ -6,7 +6,7 @@
             <div class="triangle"></div>
             <div class="basic_info">
               <el-tabs type="border-card">
-                 <!--<el-tab-pane label="公司信息树状图"><div id="tree"></div></el-tab-pane>-->
+                 <!-- <el-tab-pane label="公司信息树状图"><div id="tree"></div></el-tab-pane> -->
                 <el-tab-pane label="公司信息网状图"><div id="net"></div></el-tab-pane>
                 <el-tab-pane label="工商资料" @click="getBasicInfo('01')">
                     <ul>
@@ -186,7 +186,7 @@ export default {
                                 label: {
                                     show: true,
                                     formatter: "{b}",
-                                     position: 'right',
+                                    position: 'right',
                                     textStyle: {
                                         color: '#000',
                                         fontSize: 15,
@@ -319,7 +319,7 @@ export default {
 
         },
         getNet(){
-            debugger
+            // debugger
              reqData.req({
                 apiName: "companygxwl",
             })
@@ -330,11 +330,12 @@ export default {
                     if (res && res.code === "200") {
                         let data = res.data;
                         console.log(JSON.parse(data))
-                         this.links=JSON.parse(data)["links"]
-                         this.nodes=JSON.parse(data)["nodes"]
-                          var myChartFir = echarts.init(document.getElementById('net'));
-                         // 绘制图表
-                          myChartFir.setOption(this.optionNet);
+                        console.log("+++++++")
+                        this.links=JSON.parse(data)["links"]
+                        this.nodes=JSON.parse(data)["nodes"]
+                        var myChartFir = echarts.init(document.getElementById('net'));
+                        // 绘制图表
+                        myChartFir.setOption(this.optionNet);
                     }
 
             })

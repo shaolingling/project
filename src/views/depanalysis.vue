@@ -108,21 +108,38 @@ export default {
                     apiName: 'funnel',
                 },{
                     apiName: 'scatter',
+                },{
+                    apiName: 'sankey'
+                }, {
+                    apiName: 'graph'
+                } ,{
+                    apiName: 'relational'
                 }
+
             ]
-            reqData.all(ps, (res1, res2,res3) => {
+            reqData.all(ps, (res1, res2,res3, res4, res5 ,res6) => {
                 let res1Data = res1.data
                 let res2Data = res2.data
                 let res3Data = res3.data
+                let res4Data = res4.data
+                let res5Data = res5.data
+                let res6Data = res6.data
+                // let res5Data = res6.data
                 let [code1,data1] = [res1Data.code, res1Data.data]
                 let [code2,data2] = [res2Data.code, res2Data.data]
-                   let [code3,data3] = [res3Data.code, res3Data.data]
-                if (code1 === '200' && code2 === '200'&& code3 === '200') {
+                let [code3,data3] = [res3Data.code, res3Data.data]
+                let [code4,data4] = [res4Data.code, res4Data.data]
+                let [code5,data5] = [res5Data.code, res5Data.data]
+                let [code6,data6] = [res6Data.code, res6Data.data]
+                // let [code5,data5] = [res5Data.code, res5Data.data]
+                if (code1 === '200' && code2 === '200'&& code3 === '200' && code4 === '200' && code5 === '200' && code6 === '200') {
                    
                     sessionStorage.setItem("resshow", JSON.stringify(data1));
                     sessionStorage.setItem("resshowSec", JSON.stringify(data2)); 
                     sessionStorage.setItem("resshowThird", JSON.stringify(data3));   
-                      
+                    sessionStorage.setItem("resshowFouth", JSON.stringify(data4));   
+                    sessionStorage.setItem("resshowFifth", JSON.stringify(data5));  
+                    sessionStorage.setItem("resshowSixth", JSON.stringify(data6));  
                     this.$router.push({ name: "resshow" })
                 }  
                 

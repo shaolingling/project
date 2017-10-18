@@ -1,6 +1,22 @@
 <template>
   <div>
-    <div class="header">
+    <el-menu :default-active="activeIndex2" class="header el-menu-demo" mode="horizontal">
+      <div >
+        <!-- logo -->
+      </div>
+      <div>
+          <el-menu-item index="1">产品介绍</el-menu-item>
+          <el-menu-item index="2">客户案例</el-menu-item>
+          <el-menu-item index="3">关于我们</el-menu-item>
+          <el-menu-item index="4">联系我们</el-menu-item>
+      </div>
+      <div class="reg_load">  
+        <span class="load">登陆</span>
+        <span class="register">注册</span> 
+      </div>
+    </el-menu>
+
+    <!-- <div class="header">
       <div class="logo">logo</div>
       <ul class="nav">
         <li>产品介绍</li>
@@ -11,7 +27,7 @@
         <span class="load"> <img :src="loadbg">登陆</span>
         <span class="register"> <img :src="regbg">注册</span> 
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -19,7 +35,8 @@
 export default {
   name: 'top',
   data() {
-    return {     
+    return { 
+      activeIndex2: '1',    
       loadbg:require('./../assets/imgs/loadbg.png'),
       regbg:require('./../assets/imgs/regbg.png')
     }
@@ -30,9 +47,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header {
+  display: flex;
+  justify-content: space-between;
   overflow: hidden;
   padding-bottom: 30px;
-  border-bottom: 1px solid #ddd;
   text-align: center;
   position: fixed;
   background-color: #fff;
@@ -41,31 +59,28 @@ export default {
   right:0;
   z-index: 999;
   height:30px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5) !important;
+  font-weight: bold;
 }
-.logo {
-  position: absolute;
-  left: 80px;
-  top:16px;
-}
- 
 .reg_load {
-  position: absolute;
-  right: 80px;
-  top:16px;
- 
+    color: #3d90f0;
+    text-align: center;
+    line-height: 60px;
 }
-.reg_load img{
-  width:20px;
-  vertical-align:bottom;
-  margin-right:6px;
- }
-.nav li {
+.reg_load span{
   display: inline-block;
-  margin-right: 40px;
-  margin-top:20px;
+  height:56px;
+  width:52px;
+  font-size: 16px;
+  /* border-bottom: 5px solid ; */
 }
-
-.load {
-  margin-right: 10px;
+.reg_load span:hover{
+  /* background-color:#C4CFE5;  */
+  color:#77b1f4;
+  border-bottom: 4px solid #FFB579;
 }
+ .load{
+   margin-right:10px;
+ }
 </style>

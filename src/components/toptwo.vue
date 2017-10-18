@@ -43,16 +43,21 @@ export default {
   z-index: 999;
   height:30px;
 }
+.goindex{
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 32px;
+}
 .logo {
-  position: absolute;
-  left: 80px;
-  top:16px;
+    position: absolute;
+    left: 80px;
+    top:16px;
 }
 
 .search {
     position: absolute;
-     top:16px;
-     right:200px;
+    top:16px;
+    right:200px;
     
 }
 

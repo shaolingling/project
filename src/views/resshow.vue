@@ -3,18 +3,34 @@
         <toptwo></toptwo>
         <h3>{{analyProInfo.name}}用户需求</h3>
         <div class="echart">
-        <el-card>
-             <div id="echart_fir"></div>
-        </el-card>
-        <el-card>
-              <div id="echart_sec"></div>
-        </el-card> 
-         <el-card>
-              <div id="echart_third"></div>
-        </el-card>  
-         <el-card>
-              <div id="echart_fouth"></div>
-        </el-card>     
+            <div class="lineone">
+                <el-card class="cardone">
+                    <div id="echart_fir"></div>
+                </el-card>
+                <el-card class="cardthree">
+                    <div id="echart_third"></div>
+                </el-card>
+                <el-card class="cardfive">
+                    <div id="echart_fifth"></div>
+                </el-card> 
+            </div>
+            <div class="linetwo">
+                <div class="two_left">
+                    <el-card class="cardtwo">
+                        <div id="echart_sec"></div>
+                    </el-card>
+                </div>
+                <div class="two_right">
+                    <el-card class="cardfour">
+                        <div id="echart_fouth"></div>
+                    </el-card>
+                    <el-card class="cardsix">
+                        <div id="echart_sixth"></div>
+                    </el-card>
+                </div>
+                
+            </div>
+                      
         </div>
     </div>
 </template>
@@ -28,18 +44,17 @@ require('echarts/lib/chart/line');
 // 引入提示框和标题组件
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
+require('echarts/lib/component/legend');
 require('echarts/lib/chart/funnel');
 require('echarts/lib/chart/sankey');
+require('echarts/lib/chart/graph');
+
 
 import toptwo from '../components/toptwo.vue'
 import store from './../store'
 export default {
-    
     components: { toptwo },
     name: 'resshow',
-    beforeRouteEnter: (to, from, next) => {
-        next()
-    },
     computed: {
         analyProInfo() {
             return JSON.parse(sessionStorage.getItem("analyProInfo"))
@@ -48,14 +63,23 @@ export default {
             return JSON.parse(sessionStorage.getItem("resshow"))
         },
         dataSec() {
-            debugger
+            // debugger
             return JSON.parse(sessionStorage.getItem("resshowSec"))
         },
         dataThird(){
-            debugger
+            // debugger
              return JSON.parse(sessionStorage.getItem("resshowThird"))
         },
-       
+         dataFouth() {
+            // debugger
+            return JSON.parse(sessionStorage.getItem("resshowFouth"))
+        },
+        dataFifth() {
+            return JSON.parse(sessionStorage.getItem("resshowFifth"))
+        },
+        dataSixth() {
+            return JSON.parse(sessionStorage.getItem("resshowSixth"))
+        },
         optionFir() {
             return {
                 title: {
@@ -66,7 +90,7 @@ export default {
                     trigger: 'axis'
                 },
                 legend: {
-                    data: ['最高气温']
+                    data: ['匹配度']
                 },
                 toolbox: {
                     show: true,
@@ -96,7 +120,7 @@ export default {
                 ],
                 series: [
                     {
-                        name: '最高气温',
+                        name: '匹配度',
                         type: 'line',
                         data: this.dataFir["y"],
                         markPoint: {
@@ -117,7 +141,7 @@ export default {
 
         },
         optionSec() {
-            debugger
+            // debugger
             return {
                 title: {
                     text: '匹配',
@@ -137,7 +161,7 @@ export default {
                     }
                 },
                 legend: {
-                    data: this.dataSec["legend"]
+                    // data: this.dataSec["legend"]
                 },
                 calculable: true,
                 series: [
@@ -145,9 +169,9 @@ export default {
                         name: '漏斗图',
                         type: 'funnel',
                         x: '10%',
-                        y: 60,
-                        //x2: 80,
-                        y2: 60,
+                        y: 50,
+                        // x2: 80,
+                        y2: 20,
                         width: '80%',
                         // height: {totalHeight} - y - y2,
                         min: 0,
@@ -155,7 +179,7 @@ export default {
                         minSize: '0%',
                         maxSize: '100%',
                         sort: 'descending', // 'ascending', 'descending'
-                        gap: 10,
+                        gap: 5,
                         itemStyle: {
                             normal: {
                                 // color: 各异,
@@ -198,11 +222,11 @@ export default {
                 ]
             }
         },
-        optionThird(){  
-                return {
-                        backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
-                offset: 0,
-                color: '#f7f8fa'
+        optionThird(){
+            return {
+                    backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                    offset: 0,
+                    color: '#f7f8fa'
                 }, {
                     offset: 1,
                     color: '#cdd0d5'
@@ -260,211 +284,169 @@ export default {
                         }
                     }
                 } ]
-              }
-            },
-        
-        // optionFouth() {
-        //     //  debugger
-        //     return {
-        //         title: {
-        //             text: 'Sankey Diagram'
-        //         },
-        //         tooltip: {
-        //             trigger: 'item',
-        //             triggerOn: 'mousemove'
-        //         },
-        //         series: [
-        //             {
-        //                 type: 'sankey',
-        //                 layout: 'none',
-        //                 // data: [
-        //                 //         {
-        //                 //         "name": "安薛"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥斯博恩"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥陶"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥体大街"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥体大街西"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥体大街西站"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥体新城"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥体中心"
-        //                 //         },
-        //                 //         {
-        //                 //         "name": "奥体中心北门"
-        //                 //         }
-        //                 //         ],
-        //                     data:this.dataFouth["links"],
-        //                     // links: [
-        //                     //     {
-        //                     //     "source": "安薛",
-        //                     //     "target": "奥斯博恩",
-        //                     //     "value": 10
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "安薛",
-        //                     //     "target": "奥体中心北门",
-        //                     //     "value": 5
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "安薛",
-        //                     //     "target": "奥体中心",
-        //                     //     "value": 8
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "奥斯博恩",
-        //                     //     "target": "奥体大街西站",
-        //                     //     "value": 2
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "奥斯博恩",
-        //                     //     "target": "奥陶",
-        //                     //     "value": 7
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "奥陶",
-        //                     //     "target": "奥体中心",
-        //                     //     "value": 6
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "奥陶",
-        //                     //     "target": "奥体新城",
-        //                     //     "value": 1
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "奥陶",
-        //                     //     "target": "奥体大街",
-        //                     //     "value": 0
-        //                     //     },
-        //                     //     {
-        //                     //     "source": "奥体大街",
-        //                     //     "target": "奥体中心",
-        //                     //     "value": 5
-        //                     //     },
-        //                     //     // {
-        //                     //     // "source": "奥体大街",
-        //                     //     // "target": "安薛",
-        //                     //     // "value": 7
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体大街",
-        //                     //     // "target": "奥体新城",
-        //                     //     // "value": 6
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体大街西",
-        //                     //     // "target": "奥体中心",
-        //                     //     // "value": 10
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体大街西",
-        //                     //     // "target": "奥体新城",
-        //                     //     // "value": 6
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体大街西站",
-        //                     //     // "target": "安薛",
-        //                     //     // "value": 8
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体大街西站",
-        //                     //     // "target": "奥体新城",
-        //                     //     // "value": 8
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体大街西站",
-        //                     //     // "target": "奥斯博恩",
-        //                     //     // "value": 0
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体新城",
-        //                     //     // "target": "奥体大街西站",
-        //                     //     // "value": 4
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体新城",
-        //                     //     // "target": "安薛",
-        //                     //     // "value": 5
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体新城",
-        //                     //     // "target": "奥体中心北门",
-        //                     //     // "value": 0
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体中心",
-        //                     //     // "target": "奥陶",
-        //                     //     // "value": 7
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体中心",
-        //                     //     // "target": "奥体大街",
-        //                     //     // "value": 0
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体中心",
-        //                     //     // "target": "奥体大街西站",
-        //                     //     // "value": 2
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体中心北门",
-        //                     //     // "target": "奥陶",
-        //                     //     // "value": 5
-        //                     //     // },
-        //                     //     // {
-        //                     //     // "source": "奥体中心北门",
-        //                     //     // "target": "奥体中心",
-        //                     //     // "value": 3
-        //                     //     // }
-        //                     //     ],
-        //                 links:this.dataFouth["nodes"],
-        //                 itemStyle: {
-        //                     normal: {
-        //                         borderWidth: 1,
-        //                         borderColor: '#aaa'
-        //                     }
-        //                 },
-        //                 lineStyle: {
-        //                     normal: {
-        //                         color: 'source',
-        //                         curveness: 0.5
-        //                     }
-        //                 }
-        //             }
-        //         ]
-        //     }
-        // },
-
- 
-    
+            }
+        },
+        optionFouth() {
+            //  debugger
+            return {
+                title: {
+                    text: 'Sankey Diagram'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
+                },
+                series: [
+                    {
+                        type: 'sankey',
+                        layout: 'none',
+                        data: this.dataFouth["nodes"],
+                        links: this.dataFouth["links"],
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 1,
+                                borderColor: '#aaa'
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: 'source',
+                                curveness: 0.5
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        optionFifth() {
+            return {
+                title: {
+                    text: 'Les Miserables',
+                    // subtext: 'Default layout',
+                    // top: 'bottom',
+                    // left: 'right'
+                },
+                tooltip: {
+                    show:true
+                },
+                legend: [{
+                    selectedMode: 'single',
+                    // data: categories.map(function (a) {
+                    //     return a.name;
+                    // })
+                }],
+                animationDuration: 1500,
+                animationEasingUpdate: 'quinticInOut',
+                series : [
+                    {
+                        name: 'Les Miserables',
+                        type: 'graph',
+                        layout: 'none',
+                        data:this.dataFifth['links'],
+                        links:this.dataFifth['nodes'], 
+                        categories: [
+                            {
+                            "name": "负载",
+                            "symbol": "rect",
+                            "label": {
+                            }
+                            },
+                            {
+                            "name": "中间件",
+                            "symbol": "rect"
+                            },
+                            {
+                            "name": "端口号",
+                            "symbol": "roundRect"
+                            },
+                            {
+                            "name": "数据库",
+                            "symbol": "roundRect"
+                            },
+                            {
+                            "name": "用户名",
+                            "symbol": "roundRect"
+                            }
+                        ],
+                        roam: true,
+                        label: {
+                            normal: {
+                                position: 'right',
+                                formatter: '{b}'
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: 'source',
+                                curveness: 0.3
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        optionSixth(){
+            return {
+                title: {
+                    text: 'Les Miserables',
+                    subtext: 'Default layout',
+                    // top: 'bottom',
+                    // left: 'right'
+                },
+                tooltip: {},
+                legend: [{
+                    // selectedMode: 'single',
+                    data: this.dataSixth["categories"],
+                }],
+                animation: false,
+                series : [
+                    {
+                        name: 'Les Miserables',
+                        type: 'graph',
+                        layout: 'force',
+                        data:this.dataSixth["data"],
+                        links:this.dataSixth["links"],
+                        categories:this.dataSixth["categories"],
+                        roam: true,
+                        label: {
+                            normal: {
+                                position: 'right'
+                            }
+                        },
+                        force: {
+                            repulsion: 100
+                        }
+                    }
+                ]
+            }
+        }
     },
    
     mounted() {
-        
-        var myChartFir = echarts.init(document.getElementById('echart_fir')); 
+        // 基于准备好的dom，初始化echarts实例
+        var myChartFir = echarts.init(document.getElementById('echart_fir'));
+        // 绘制图表
         myChartFir.setOption(this.optionFir);
-
         var myChartSec = echarts.init(document.getElementById('echart_sec'));
-        myChartSec.setOption(this.optionSec);
-
-        var myChartThird = echarts.init(document.getElementById('echart_third'));
-        myChartThird.setOption(this.optionThird);
-          
-        var myChartFouth = echarts.init(document.getElementById('echart_fouth'));    
-        myChartFouth.setOption(this.optionFouth);
+        // 绘制图表
        
+        myChartSec.setOption(this.optionSec);
+        var myChartThird = echarts.init(document.getElementById('echart_third'));
+        // 绘制图表
+        //   debugger
+        myChartThird.setOption(this.optionThird);
+        console.log(this.dataThird);
+        var myChartFouth = echarts.init(document.getElementById('echart_fouth'));
+        // 绘制图表
+        // debugger
+        myChartFouth.setOption(this.optionFouth);
+        var myChartFifth = echarts.init(document.getElementById('echart_fifth'));
+        // 绘制图表
+        myChartFifth.setOption(this.optionFifth);
+
+        var myChartSixth = echarts.init(document.getElementById('echart_sixth'));
+        // 绘制图表
+        myChartSixth.setOption(this.optionSixth);
     }
 }
 </script>
@@ -484,14 +466,28 @@ h3 {
     text-align: center;
     margin-top:100px;
 }
+.lineone{
+    width: 100%;
+    display: flex;
+}
+.linetwo{
+    display: flex;
+}
+.two_left{
+   width:32.4%;
+   margin-right:12px;
+}
+.two_right{
+    width:66%;
+}
 .el-card{
-    width: 40%;
-    float:left;
-    margin:40px 60px;
+     width:100%;
+    margin:10px 5px;
     overflow:auto;
 }
+
 #echart_fir {
-    width:100%;
+     width:100%; 
     height: 400px; 
 }
 
@@ -503,11 +499,18 @@ h3 {
 }
 #echart_third{
      width:100%;
-    height: 600px;
+    height: 400px;
 }
 #echart_fouth{
      width:100%;
-    height: 600px;
+    height: 450px;
 }
- 
+#echart_sixth{
+     width:100%;
+    height: 350px;
+}
+#echart_fifth{
+     width:100%;
+    height: 400px;
+}
 </style>

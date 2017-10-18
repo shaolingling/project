@@ -10,7 +10,7 @@ const axiosConfig = {
       // Do whatever you want to transform the data
       return JSON.stringify(data);
     }
-  ],
+  ], 
   headers: {
     // "Content-Type": "application/json;charset=utf-8",
     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
@@ -79,10 +79,18 @@ const requestApi = {
     url: "/scatter",
     method: "post"
   },
-  mulberry:{
+  sankey: {
     url: "/mulberry",
     method: "post"
-  }, 
+  },
+  graph: { 
+    url: "/nexus",
+    method: "post"
+  },
+  relational: { 
+    url: "/relationalnetwork",
+    method: "post"
+  }
 };
 export default {
   req: function(p) {
