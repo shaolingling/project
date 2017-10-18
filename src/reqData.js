@@ -78,7 +78,11 @@ const requestApi = {
   scatter:{
     url: "/scatter",
     method: "post"
-  }
+  },
+  mulberry:{
+    url: "/mulberry",
+    method: "post"
+  }, 
 };
 export default {
   req: function(p) {
