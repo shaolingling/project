@@ -40,22 +40,22 @@ export default {
         }
     },
     mounted() {
-        var autoDom = document.getElementsByClassName("el-autocomplete-suggestion")[0]
-        var newdiv = document.createElement("div");
-        newdiv.id = "clean-his";
-        var newtext = document.createTextNode("清除历史记录");
-        newdiv.appendChild(newtext);
-        var _this = this
-        newdiv.addEventListener("click", function () {
-           // _this.clearHistory()
-           _this.dialogVisible = true
-        });
-        newdiv.style.backgroundColor = "#fff"
-        newdiv.style.height = "40px"
-        newdiv.style.lineHeight = "40px"
+        // var autoDom = document.getElementsByClassName("el-autocomplete-suggestion")[0]
+        // var newdiv = document.createElement("div");
+        // newdiv.id = "clean-his";
+        // var newtext = document.createTextNode("清除历史记录");
+        // newdiv.appendChild(newtext);
+        // var _this = this
+        // newdiv.addEventListener("click", function () {
+        //    _this.dialogVisible = true
+        // });
+        // newdiv.style.backgroundColor = "#fff"
+        // newdiv.style.height = "40px"
+        // newdiv.style.lineHeight = "40px"
         //  var newdivWidth = autoDom.offsetWidth - 4
         //  console.log(newdivWidth)
         //  newdiv.style.width = "690px"
+        newdiv.style.fontSize = "14px" 
         newdiv.style.paddingLeft = "10px"
         newdiv.style.position = "relative"
         newdiv.style.top = "-1px"
